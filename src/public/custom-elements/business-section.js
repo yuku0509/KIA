@@ -18,7 +18,7 @@ class BusinessSection extends HTMLElement {
 
         .top-business {
           position: relative;
-          background-color: #0B1E3D; /* ベースカラー（ネイビー） */
+          background-color: #0B1E3D;
           color: #fff;
           padding: 120px 0;
         }
@@ -35,7 +35,7 @@ class BusinessSection extends HTMLElement {
         .business-label {
           display: block;
           font-size: 14px; font-weight: 700; 
-          color: #FF6600; /* アクセントカラー */
+          color: #FF6600;
           letter-spacing: 0.15em; margin-bottom: 15px;
         }
         .business-title {
@@ -68,7 +68,6 @@ class BusinessSection extends HTMLElement {
           box-shadow: 0 15px 30px rgba(0,0,0,0.3);
         }
 
-        /* 数字のデザイン */
         .b-card__num {
           font-family: 'Oswald', sans-serif;
           font-size: 60px;
@@ -116,27 +115,25 @@ class BusinessSection extends HTMLElement {
           font-family: 'Noto Serif JP', serif;
         }
 
-        /* 事業リストエリア（ここを変更しました） */
+        /* ▼▼▼ ここを修正しました（強制的に縦並びにする記述） ▼▼▼ */
         .b-card__list {
           border-top: 1px solid #eee;
           padding-top: 20px;
-          /* ▼変更: Flexboxで縦並びにし、左寄せにする */
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 10px; /* 項目間の隙間 */
+          display: block; /* ブロック要素にする */
         }
         
         .b-card__item {
-          display: inline-block;
+          display: block; /* 1行を占有させる */
+          width: fit-content; /* 文字数に合わせた幅にする */
           font-size: 12px;
           font-weight: bold;
           background-color: #0B1E3D;
           color: #fff;
-          padding: 8px 16px; /* 少し大きめに調整 */
+          padding: 8px 16px;
+          margin-bottom: 8px; /* 下に余白 */
           border-radius: 2px;
-          /* margin設定は削除（gapで制御するため） */
         }
+        /* ▲▲▲ 修正ここまで ▲▲▲ */
 
         /* スマホ対応 */
         @media (max-width: 768px) {
