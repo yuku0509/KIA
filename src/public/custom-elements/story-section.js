@@ -28,14 +28,14 @@ class StorySection extends HTMLElement {
         }
 
         .story-label {
-          font-family: 'Noto Sans JP', sans-serif;
-          font-size: 14px; 
-          font-weight: 700; 
-          letter-spacing: 0.15em;
-          margin-bottom: 20px; 
-          display: block; 
-          opacity: 0.7;
-          color: #FF6600; /* アクセントカラー */
+          display: block;
+          font-size: 16px;
+          font-weight: bold;
+          color: #FF6600;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          margin-bottom: 15px;
+          font-family: 'DIN', sans-serif;
         }
 
         .story-title {
@@ -92,8 +92,8 @@ class StorySection extends HTMLElement {
       <div class="l-container">
         <span class="story-label">STORY</span>
         <h2 class="story-title">
-          KickInAnswer<br>
-          に込めた覚悟
+          KickInAnswer に<br>
+          込めた覚悟
         </h2>
         
         <div class="quote-box">

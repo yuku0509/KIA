@@ -55,6 +55,17 @@ class CompanySection extends HTMLElement {
         }
 
         /* タイトル周り */
+        .company-label {
+          display: block;
+          font-size: 14px; font-weight: 700; 
+          color: #FF6600;
+          letter-spacing: 0.15em; margin-bottom: 15px;
+        }
+        .company-title {
+          font-size: 42px; font-weight: 900; margin: 0;
+          font-family: 'Noto Sans JP', sans-serif;
+          letter-spacing: 0.05em;
+        }
         .section-title {
           font-family: 'Noto Sans JP', sans-serif;
           font-size: 42px;
@@ -123,7 +134,7 @@ class CompanySection extends HTMLElement {
           .l-container {
             padding: 0 20px;
           }
-          .section-title {
+          .company-title {
             font-size: 28px;
             margin-bottom: 50px;
           }
@@ -148,10 +159,8 @@ class CompanySection extends HTMLElement {
         <div class="company-bg-text">KIA</div>
 
         <div class="l-container">
-          <h2 class="section-title">
-            COMPANY
-            <span>会社概要</span>
-          </h2>
+            <span class="company-label">COMPANY</span>
+            <h2 class="company-title">会社概要</h2>
 
           <div class="company-list">
             <div class="company-row">
