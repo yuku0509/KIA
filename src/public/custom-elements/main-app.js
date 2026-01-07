@@ -38,10 +38,10 @@ class SiteApp extends HTMLElement {
     // ★ここを、取得したURLに書き換えてください
     this.loadScripts([
       'https://yuku0509.github.io/KIA/src/public/custom-elements/site-header.js',
-      'https://yuku0509.github.io/KIA/src/public/custom-elements/topphoto-section.js',
+      'https://yuku0509.github.io/KIA/src/public/custom-elements/topPhoto-section.js',
       'https://yuku0509.github.io/KIA/src/public/custom-elements/story-section.js',
       'https://yuku0509.github.io/KIA/src/public/custom-elements/business-section.js',
-      'https://yuku0509.github.io/KIA/src/public/custom-elements/lifestyle-section.js',
+      'https://yuku0509.github.io/KIA/src/public/custom-elements/lifeStyle-section.js',
       'https://yuku0509.github.io/KIA/src/public/custom-elements/company-section.js',
       'https://yuku0509.github.io/KIA/src/public/custom-elements/contact-section.js',
       'https://yuku0509.github.io/KIA/src/public/custom-elements/site-footer.js'
