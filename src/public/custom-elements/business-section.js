@@ -20,7 +20,7 @@ class BusinessSection extends HTMLElement {
           position: relative;
           background-color: #0B1E3D; /* ベースカラー（ネイビー） */
           color: #fff;
-          padding: 120px 0; /* 上下の余白をたっぷり確保 */
+          padding: 120px 0;
         }
 
         .l-container {
@@ -49,7 +49,7 @@ class BusinessSection extends HTMLElement {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           gap: 30px;
-          align-items: stretch; /* 高さを揃える */
+          align-items: stretch;
         }
 
         .b-card {
@@ -63,7 +63,6 @@ class BusinessSection extends HTMLElement {
           flex-direction: column;
         }
 
-        /* ホバー時に少し浮き上がる演出 */
         .b-card:hover {
           transform: translateY(-5px);
           box-shadow: 0 15px 30px rgba(0,0,0,0.3);
@@ -73,7 +72,7 @@ class BusinessSection extends HTMLElement {
         .b-card__num {
           font-family: 'Oswald', sans-serif;
           font-size: 60px;
-          color: #F0F0F0; /* 薄いグレーで背景っぽく */
+          color: #F0F0F0;
           line-height: 1;
           position: absolute;
           top: 20px;
@@ -113,24 +112,30 @@ class BusinessSection extends HTMLElement {
           line-height: 1.8;
           color: #444;
           margin-bottom: 30px;
-          flex-grow: 1; /* 下部のリストを底に押しやる */
-          font-family: 'Noto Serif JP', serif; /* 本文は明朝体で知的に */
+          flex-grow: 1;
+          font-family: 'Noto Serif JP', serif;
         }
 
-        /* 事業リストエリア */
+        /* 事業リストエリア（ここを変更しました） */
         .b-card__list {
           border-top: 1px solid #eee;
           padding-top: 20px;
+          /* ▼変更: Flexboxで縦並びにし、左寄せにする */
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px; /* 項目間の隙間 */
         }
+        
         .b-card__item {
           display: inline-block;
           font-size: 12px;
           font-weight: bold;
           background-color: #0B1E3D;
           color: #fff;
-          padding: 6px 12px;
-          margin: 0 5px 5px 0;
+          padding: 8px 16px; /* 少し大きめに調整 */
           border-radius: 2px;
+          /* margin設定は削除（gapで制御するため） */
         }
 
         /* スマホ対応 */
@@ -138,7 +143,7 @@ class BusinessSection extends HTMLElement {
           .top-business { padding: 80px 0; }
           .business-title { font-size: 28px; }
           .business-grid {
-            grid-template-columns: 1fr; /* 1列にする */
+            grid-template-columns: 1fr;
             gap: 40px;
           }
           .b-card { padding: 30px 25px; }
