@@ -9,7 +9,7 @@ class CompanySection extends HTMLElement {
     this.id = 'section-company';
     this.shadowRoot.innerHTML = `
       <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Oswald:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Oswald:wght@700&display=swap');
 
         :host {
           display: block;
@@ -20,27 +20,27 @@ class CompanySection extends HTMLElement {
         .company-section {
           position: relative;
           width: 100%;
-          /* 余白を他のセクションと統一 */
+          /* Businessセクションと同じ余白(120px) */
           padding: 120px 0;
           color: #fff;
-          /* メインカラーのネイビーをベースに、少しリッチなグラデーション */
+          /* ★背景設定：ネイビーのグラデーション（維持） */
           background: linear-gradient(135deg, #0B1E3D 0%, #162d50 100%);
-          overflow: hidden; /* はみ出した背景文字をカット */
+          overflow: hidden;
         }
 
-        /* 背景の巨大な「KIA」文字 */
+        /* ★背景文字設定：巨大なKIA（維持） */
         .company-bg-text {
           position: absolute;
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          font-family: 'Oswald', sans-serif; /* 英語フォントで力強く */
-          font-size: 35vw; /* 画面幅に応じた巨大サイズ */
+          font-family: 'Oswald', sans-serif;
+          font-size: 35vw;
           font-weight: 700;
           line-height: 1;
           color: #fff;
-          opacity: 0.03; /* うっすら見える程度に透過 */
-          pointer-events: none; /* マウス操作を邪魔しない */
+          opacity: 0.03; /* うっすら見える設定 */
+          pointer-events: none;
           z-index: 0;
           white-space: nowrap;
           user-select: none;
@@ -48,40 +48,36 @@ class CompanySection extends HTMLElement {
 
         .l-container {
           position: relative;
-          z-index: 2; /* 背景文字より上に表示 */
+          z-index: 2;
           max-width: 1000px;
           margin: 0 auto;
           padding: 0 40px;
         }
 
-        /* タイトル周り */
+        /* ▼▼▼ タイトル周りをBusinessセクションと統一 ▼▼▼ */
+        .company-header {
+          text-align: center;
+          margin-bottom: 80px; /* リストとの距離 */
+        }
+        
         .company-label {
           display: block;
-          font-size: 14px; font-weight: 700; 
-          color: #FF6600;
-          letter-spacing: 0.15em; margin-bottom: 15px;
+          font-size: 14px; 
+          font-weight: 700; 
+          color: #FF6600; /* オレンジ */
+          letter-spacing: 0.15em; 
+          margin-bottom: 15px;
         }
+
         .company-title {
-          font-size: 42px; font-weight: 900; margin: 0;
+          font-size: 42px; 
+          font-weight: 900; 
+          margin: 0;
           font-family: 'Noto Sans JP', sans-serif;
           letter-spacing: 0.05em;
+          line-height: 1.2;
         }
-        .section-title {
-          font-family: 'Noto Sans JP', sans-serif;
-          font-size: 42px;
-          font-weight: 700;
-          margin: 0 0 60px;
-          text-align: center;
-          letter-spacing: 0.05em;
-        }
-        .section-title span {
-          display: block;
-          font-size: 14px;
-          font-weight: 700;
-          margin-top: 15px;
-          color: #FF6600; /* アクセントカラー */
-          letter-spacing: 0.15em;
-        }
+        /* ▲▲▲▲▲▲ */
 
         /* 会社概要リストのデザイン */
         .company-list {
@@ -93,29 +89,28 @@ class CompanySection extends HTMLElement {
           display: flex;
           flex-wrap: wrap;
           border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-          padding: 30px 0; /* ゆったりとした行間 */
+          padding: 30px 0;
           transition: background-color 0.3s;
         }
         
-        /* ホバー時に少しだけ明るくしてインタラクティブ感を出す */
         .company-row:hover {
           background-color: rgba(255, 255, 255, 0.05);
         }
 
         .company-dt {
-          width: 25%; /* 左側の幅 */
+          width: 25%;
           font-weight: 700;
           padding-right: 20px;
-          padding-left: 20px; /* 左端を少し空ける */
+          padding-left: 20px;
           box-sizing: border-box;
           font-size: 16px;
           display: flex;
           align-items: center;
-          color: #FF6600; /* 項目名をオレンジにして視認性アップ */
+          color: #FF6600;
         }
 
         .company-dd {
-          width: 75%; /* 右側の幅 */
+          width: 75%;
           margin: 0;
           line-height: 1.8;
           font-size: 16px;
@@ -128,18 +123,23 @@ class CompanySection extends HTMLElement {
             padding: 80px 0;
           }
           .company-bg-text {
-            font-size: 150px; /* スマホでは固定サイズ気味に */
-            opacity: 0.05; /* 少し濃くして存在感を出す */
+            font-size: 150px;
+            opacity: 0.05;
           }
           .l-container {
             padding: 0 20px;
           }
+          
+          /* ヘッダーのスマホ対応 */
+          .company-header {
+             margin-bottom: 50px;
+          }
           .company-title {
             font-size: 28px;
-            margin-bottom: 50px;
           }
+
           .company-row {
-            display: block; /* 縦並び */
+            display: block;
             padding: 25px 10px;
           }
           .company-dt {
@@ -159,8 +159,11 @@ class CompanySection extends HTMLElement {
         <div class="company-bg-text">KIA</div>
 
         <div class="l-container">
+          
+          <div class="company-header">
             <span class="company-label">COMPANY</span>
             <h2 class="company-title">会社概要</h2>
+          </div>
 
           <div class="company-list">
             <div class="company-row">
