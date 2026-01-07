@@ -22,25 +22,22 @@ class ContactSection extends HTMLElement {
 
         .contact-section {
           width: 100%;
-          /* 外側は白で清潔感を出す */
-          background-color: #fff; 
+          /* ▼変更: セクション全体を薄いグレーに統一 */
+          background-color: #F9F9F9; 
           padding: 120px 0;
           text-align: center;
           position: relative; 
         }
 
-        /* ▼▼▼ ご指定の設定 ▼▼▼ */
         .l-container {
           max-width: 800px;
           margin: 0 auto;
-          /* 白背景の中に、うっすらグレーのエリアを作ってまとめる */
-          background-color: #F9F9F9; 
-          padding: 80px 40px;
-          border-radius: 4px;
+          /* ▼変更: 箱の背景色を削除（全体になじませる） */
+          background-color: transparent; 
+          padding: 0 40px; /* 上下のpaddingも削除（セクションで確保しているため） */
           position: relative;
           z-index: 2; 
         }
-        /* ▲▲▲▲▲▲ */
 
         .section-title {
           font-family: 'Noto Sans JP', sans-serif;
@@ -99,7 +96,7 @@ class ContactSection extends HTMLElement {
           .contact-section { padding: 80px 0; }
           .l-container {
             margin: 0 20px;
-            padding: 50px 20px;
+            padding: 0 20px; /* コンテナのpaddingを調整 */
           }
           .section-title { font-size: 28px; }
           .contact-desc { font-size: 14px; text-align: left; }
