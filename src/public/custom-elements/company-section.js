@@ -20,15 +20,15 @@ class CompanySection extends HTMLElement {
         .company-section {
           position: relative;
           width: 100%;
-          /* Businessセクションと同じ余白(120px) */
+          /* 余白設定 */
           padding: 120px 0;
           color: #fff;
-          /* ★背景設定：ネイビーのグラデーション（維持） */
+          /* 背景設定：ネイビーのグラデーション */
           background: linear-gradient(135deg, #0B1E3D 0%, #162d50 100%);
           overflow: hidden;
         }
 
-        /* ★背景文字設定：巨大なKIA（維持） */
+        /* 背景の巨大な「KIA」文字 */
         .company-bg-text {
           position: absolute;
           top: 50%;
@@ -54,17 +54,17 @@ class CompanySection extends HTMLElement {
           padding: 0 40px;
         }
 
-        /* ▼▼▼ タイトル周りをBusinessセクションと統一 ▼▼▼ */
+        /* ▼▼▼ ヘッダー（タイトル）部分：中央揃え ▼▼▼ */
         .company-header {
-          text-align: center;
-          margin-bottom: 80px; /* リストとの距離 */
+          text-align: center; /* ここで中央寄せ */
+          margin-bottom: 80px;
         }
         
         .company-label {
           display: block;
           font-size: 14px; 
           font-weight: 700; 
-          color: #FF6600; /* オレンジ */
+          color: #FF6600; /* アクセントカラー */
           letter-spacing: 0.15em; 
           margin-bottom: 15px;
         }
