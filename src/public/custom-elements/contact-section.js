@@ -22,13 +22,14 @@ class ContactSection extends HTMLElement {
 
         .contact-section {
           width: 100%;
-          /* 上のセクションとメリハリをつけるため、ここはシンプルに白 */
+          /* 外側は白で清潔感を出す */
           background-color: #fff; 
           padding: 120px 0;
           text-align: center;
           position: relative; 
         }
 
+        /* ▼▼▼ ご指定の設定 ▼▼▼ */
         .l-container {
           max-width: 800px;
           margin: 0 auto;
@@ -39,12 +40,13 @@ class ContactSection extends HTMLElement {
           position: relative;
           z-index: 2; 
         }
+        /* ▲▲▲▲▲▲ */
 
         .section-title {
           font-family: 'Noto Sans JP', sans-serif;
           font-size: 36px;
           font-weight: 700;
-          color: #0B1E3D; /* 背景が白なので文字はネイビー */
+          color: #0B1E3D; /* ネイビー */
           margin-bottom: 30px;
           margin-top: 0;
           letter-spacing: 0.05em;
@@ -64,10 +66,10 @@ class ContactSection extends HTMLElement {
           font-size: 16px;
           line-height: 2.0;
           margin-bottom: 50px;
-          color: #333; /* 読みやすい濃いグレー */
+          color: #333;
         }
 
-        /* --- ボタンデザイン（オレンジのまま） --- */
+        /* ボタンデザイン */
         .contact-link-btn {
           display: inline-flex;
           justify-content: center;
@@ -77,7 +79,6 @@ class ContactSection extends HTMLElement {
           font-size: 16px;
           font-weight: bold;
           text-decoration: none;
-          /* ボタンを少し大きめにして押しやすく */
           width: 300px;
           height: 60px; 
           border-radius: 50px;
@@ -85,10 +86,9 @@ class ContactSection extends HTMLElement {
           position: relative;
           z-index: 10;
           cursor: pointer;
-          box-shadow: 0 10px 20px rgba(255, 102, 0, 0.2); /* ほんのりオレンジの影 */
+          box-shadow: 0 10px 20px rgba(255, 102, 0, 0.2);
         }
 
-        /* ホバー時に少し浮く動きを追加 */
         .contact-link-btn:hover {
           background-color: #e65c00;
           transform: translateY(-3px);
