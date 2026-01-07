@@ -30,12 +30,18 @@ class SiteApp extends HTMLElement {
       <div class="app-wrapper">
         <site-header></site-header>
         <topphoto-section></topphoto-section>
+        
+        <story-section></story-section>
+        <business-section></business-section>
         <lifestyle-section></lifestyle-section>
+
+        <company-section></company-section>
+        <contact-section></contact-section>
         <site-footer></site-footer>
       </div>
     `;
 
-    // ★ここを、取得したURLに書き換えてください
+    // ★スクリプトの読み込み（ここは元のままでOKです）
     this.loadScripts([
       'https://yuku0509.github.io/KIA/src/public/custom-elements/site-header.js',
       'https://yuku0509.github.io/KIA/src/public/custom-elements/topPhoto-section.js',
@@ -55,7 +61,7 @@ class SiteApp extends HTMLElement {
         const script = document.createElement('script');
         script.src = url;
         script.type = 'text/javascript';
-        // 非同期読み込み設定（順序保証が必要なら false にして制御が必要だが、今回はカスタム要素定義なのでasyncで概ねOK）
+        // 非同期読み込み設定
         script.async = false; 
         document.head.appendChild(script);
       }
