@@ -21,7 +21,8 @@ class lifeStyleSection extends HTMLElement {
         
         .top-life {
           position: relative;
-          padding: 80px 0; /* 余白を少し広げました */
+          /* ▼変更: 80pxから120pxに増やし、上下の空間を広く確保 */
+          padding: 120px 0;
           background-color: #fff;
           z-index: 1;
         }
@@ -36,10 +37,11 @@ class lifeStyleSection extends HTMLElement {
 
         /* --- タイトル周りのデザイン修正 --- */
         .top-life__heading {
-          margin-bottom: 60px;
+          /* ▼変更: タイトルと本文の間も少し広げてゆとりを持たせる */
+          margin-bottom: 80px; 
           position: relative;
           z-index: 2;
-          text-align: center; /* 全体を中央寄せ */
+          text-align: center;
         }
 
         /* 見出し：LifeStyle（英語） */
@@ -47,11 +49,11 @@ class lifeStyleSection extends HTMLElement {
           display: block;
           font-size: 16px;
           font-weight: bold;
-          color: #FF6600; /* アクセントカラー（オレンジ） */
+          color: #FF6600;
           letter-spacing: 0.1em;
           text-transform: uppercase;
           margin-bottom: 15px;
-          font-family: 'DIN', sans-serif; /* もしあれば欧文フォント */
+          font-family: 'DIN', sans-serif;
         }
 
         /* 中見出し：挑戦が日常になる世界 */
@@ -65,22 +67,22 @@ class lifeStyleSection extends HTMLElement {
 
         /* 本文エリア */
         .top-life__descWrap {
-          max-width: 800px; /* 横に広がりすぎないように制限 */
-          margin: 0 auto;   /* 中央配置 */
+          max-width: 800px;
+          margin: 0 auto;
         }
         .top-life__desc {
-          font-size: 15px; /* 少し読みやすく大きく */
-          line-height: 2.0; /* 行間を広めに */
+          font-size: 15px;
+          line-height: 2.0;
           color: #333;
           margin: 0;
-          text-align: left; /* 文章自体は左揃え（中央揃えが良ければ center に） */
-          display: inline-block; /* 左揃えにしつつ、ブロック全体を中央に置くテクニック */
+          text-align: left;
+          display: inline-block;
         }
 
         /* 流れる文字（Marquee） */
         .top-life__marqueeWrap {
           position: absolute;
-          top: 100px;
+          top: 150px; /* ▼変更: 全体の高さ変更に合わせて位置調整 */
           left: 0;
           width: 100%;
           overflow: hidden;
@@ -109,7 +111,7 @@ class lifeStyleSection extends HTMLElement {
         .top-life__postList {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 40px;
+          gap: 60px; /* ▼変更: 写真同士の間隔も少し広げました(40px->60px) */
           position: relative;
           z-index: 20;
         }
@@ -123,7 +125,7 @@ class lifeStyleSection extends HTMLElement {
         .top-life__postImgWrap {
           position: relative; 
           width: 100%;
-          margin-bottom: 20px;
+          margin-bottom: 25px; /* ▼変更: 画像とタイトルの間を微調整 */
           z-index: 20;
         }
 
@@ -133,6 +135,8 @@ class lifeStyleSection extends HTMLElement {
           height: auto;
           display: block;
           object-fit: cover;
+          /* ▼追加: 画像に少し高級感を出すためのシャドウ（お好みで） */
+          box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
         
         /* 再生ボタンのオーバーレイ */
@@ -146,7 +150,6 @@ class lifeStyleSection extends HTMLElement {
           justify-content: center;
           align-items: center;
           background-color: rgba(0,0,0,0.3);
-          
           cursor: pointer;
           z-index: 999; 
           pointer-events: auto;
@@ -210,6 +213,13 @@ class lifeStyleSection extends HTMLElement {
         }
         
         @media (max-width: 768px) {
+          /* ▼変更: スマホ時の余白設定 */
+          .top-life {
+            padding: 80px 0; /* スマホでも80px確保して窮屈さを解消 */
+          }
+          .top-life__heading {
+            margin-bottom: 50px;
+          }
           .top-life__postList {
             grid-template-columns: 1fr;
             gap: 60px;
@@ -222,7 +232,7 @@ class lifeStyleSection extends HTMLElement {
           }
           .top-life__desc {
             font-size: 14px;
-            text-align: left; /* スマホは左揃えが読みやすい */
+            text-align: left;
           }
         }
       </style>
