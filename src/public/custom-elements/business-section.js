@@ -9,104 +9,200 @@ class BusinessSection extends HTMLElement {
     this.id = 'section-business';
     this.shadowRoot.innerHTML = `
       <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Noto+Serif+JP:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Noto+Serif+JP:wght@400;700&family=Oswald:wght@500&display=swap');
 
         :host {
           display: block; width: 100%;
           font-family: 'Noto Sans JP', sans-serif;
         }
 
-        /* .top-service を .top-business に変更 */
         .top-business {
           position: relative;
-          background-color: #0B1E3D; /* メインカラー（ネイビー） */
+          background-color: #0B1E3D; /* ベースカラー（ネイビー） */
           color: #fff;
-          overflow: hidden; padding: 100px 0;
-        }
-
-        /* 画像マスク */
-        .top-business__bg {
-          position: absolute; top: 0; right: 0; width: 60%; height: 100%;
-          opacity: 0.6; z-index: 0;
-        }
-        .top-business__bgImg {
-          width: 100%; height: 100%; object-fit: cover;
-          mask-image: linear-gradient(to right, transparent, black 20%);
-          -webkit-mask-image: linear-gradient(to right, transparent, black 20%);
+          padding: 120px 0; /* 上下の余白をたっぷり確保 */
         }
 
         .l-container {
-          position: relative; max-width: 1200px; margin: 0 auto; padding: 0 40px;
-          z-index: 1; display: flex; align-items: center; height: 100%; min-height: 400px;
+          max-width: 1200px; margin: 0 auto; padding: 0 20px;
         }
 
-        .top-business__contents { max-width: 500px; }
-
-        .top-business__intro {
-          font-size: 14px; font-weight: 700; margin-bottom: 15px;
-          color: #FF6600; /* アクセント（オレンジ） */
-          letter-spacing: 0.1em;
+        /* --- ヘッダー部分 --- */
+        .business-header {
+          text-align: center;
+          margin-bottom: 80px;
         }
-        .top-business__title {
-          font-size: 52px; font-weight: 400; margin: 0 0 30px; line-height: 1.1;
+        .business-label {
+          display: block;
+          font-size: 14px; font-weight: 700; 
+          color: #FF6600; /* アクセントカラー */
+          letter-spacing: 0.15em; margin-bottom: 15px;
+        }
+        .business-title {
+          font-size: 42px; font-weight: 900; margin: 0;
           font-family: 'Noto Sans JP', sans-serif;
-        }
-        .top-business__title--bold { font-weight: 900; }
-
-        .top-business__description {
-          font-family: 'Noto Serif JP', serif; /* 明朝 */
-          font-size: 15px; line-height: 2.0; margin-bottom: 40px; opacity: 0.9;
+          letter-spacing: 0.05em;
         }
 
-        .top-business__heading {
-            /* 必要であればここにスタイル追加 */
+        /* --- 3つのカードレイアウト --- */
+        .business-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 30px;
+          align-items: stretch; /* 高さを揃える */
         }
 
-        /* ボタンデザイン */
-        .c-btn1 {
-          display: inline-flex; align-items: center;
-          color: #fff; text-decoration: none;
-          font-size: 14px; font-weight: 700;
-          border-bottom: 2px solid #FF6600; /* オレンジライン */
-          padding-bottom: 5px; transition: opacity 0.3s;
-        }
-        .c-btn1:hover { opacity: 0.8; }
-        .c-btn1__icon {
-          margin-left: 10px; width: 20px; fill: none; stroke: #FF6600; /* オレンジ */
+        .b-card {
+          background: #fff;
+          color: #111;
+          padding: 40px 30px;
+          border-radius: 4px;
+          position: relative;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          display: flex;
+          flex-direction: column;
         }
 
+        /* ホバー時に少し浮き上がる演出 */
+        .b-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        /* 数字のデザイン */
+        .b-card__num {
+          font-family: 'Oswald', sans-serif;
+          font-size: 60px;
+          color: #F0F0F0; /* 薄いグレーで背景っぽく */
+          line-height: 1;
+          position: absolute;
+          top: 20px;
+          right: 20px;
+          font-weight: bold;
+          z-index: 0;
+        }
+
+        .b-card__content {
+          position: relative;
+          z-index: 1;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .b-card__en {
+          display: block;
+          color: #FF6600;
+          font-weight: bold;
+          font-size: 18px;
+          margin-bottom: 10px;
+          font-family: 'Oswald', sans-serif;
+          letter-spacing: 0.05em;
+        }
+
+        .b-card__jp {
+          display: block;
+          font-size: 20px;
+          font-weight: bold;
+          margin-bottom: 25px;
+          line-height: 1.4;
+        }
+
+        .b-card__desc {
+          font-size: 14px;
+          line-height: 1.8;
+          color: #444;
+          margin-bottom: 30px;
+          flex-grow: 1; /* 下部のリストを底に押しやる */
+          font-family: 'Noto Serif JP', serif; /* 本文は明朝体で知的に */
+        }
+
+        /* 事業リストエリア */
+        .b-card__list {
+          border-top: 1px solid #eee;
+          padding-top: 20px;
+        }
+        .b-card__item {
+          display: inline-block;
+          font-size: 12px;
+          font-weight: bold;
+          background-color: #0B1E3D;
+          color: #fff;
+          padding: 6px 12px;
+          margin: 0 5px 5px 0;
+          border-radius: 2px;
+        }
+
+        /* スマホ対応 */
         @media (max-width: 768px) {
-          .top-business { padding: 60px 0; }
-          .top-business__bg { width: 100%; height: 40%; bottom: 0; top: auto; mask-image: linear-gradient(to bottom, transparent, black 20%); -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%); }
-          .l-container { display: block; padding: 0 20px; }
-          .top-business__title { font-size: 36px; }
+          .top-business { padding: 80px 0; }
+          .business-title { font-size: 28px; }
+          .business-grid {
+            grid-template-columns: 1fr; /* 1列にする */
+            gap: 40px;
+          }
+          .b-card { padding: 30px 25px; }
         }
       </style>
 
       <section class="top-business">
-        <div class="top-business__bg">
-          <picture>
-            <source media="(min-width: 1024px)" srcset="https://corp.tential.jp/wp-content/themes/tential/assets/img/top/service/top_service_pc.png">
-            <img class="top-business__bgImg" src="https://corp.tential.jp/wp-content/themes/tential/assets/img/top/service/top_service_sp.png" alt="business">
-          </picture>
-        </div>
-
         <div class="l-container">
-          <div class="top-business__contents">
-            <div class="top-business__heading">
-              <p class="top-business__intro">BUSINESS</p>
-              <h2 class="top-business__title">Our <span class="top-business__title--bold">Business</span></h2>
-            </div>
-            <p class="top-business__description">
-              「365日24hコンディショニング」を軸に、「SLEEP」「WORK」「FOOT」の3領域で機能性製品を展開。累計100万セット超の疲労回復パジャマ「BAKUNE」など、アスリートの知見と科学に基づいたアイテムを提供しています。
-            </p>
-            <a href="#" class="c-btn1">
-              <span class="c-btn1__text">詳細を見る</span>
-              <svg class="c-btn1__icon" viewBox="0 0 21 12">
-                <path d="M0 6L19 6" stroke-width="2"></path>
-                <path d="M14.5 1L19.5 6L14.5 11" stroke-width="2"></path>
-              </svg>
-            </a>
+          
+          <div class="business-header">
+            <span class="business-label">OUR BUSINESS</span>
+            <h2 class="business-title">事業領域</h2>
+          </div>
+
+          <div class="business-grid">
+            
+            <article class="b-card">
+              <span class="b-card__num">01</span>
+              <div class="b-card__content">
+                <span class="b-card__en">Strategic Answer</span>
+                <h3 class="b-card__jp">不確実性を、確信へ。</h3>
+                <p class="b-card__desc">
+                  独自の知見とデータに基づき、挑戦者が直面する課題に対する「最善の答え」を提示。<br>
+                  迷いを取り払い、進むべき道を明確にする戦略を提供します。
+                </p>
+                <div class="b-card__list">
+                  <span class="b-card__item">コンサル・マネジメント業</span>
+                  <span class="b-card__item">キャリアコンサルタント</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="b-card">
+              <span class="b-card__num">02</span>
+              <div class="b-card__content">
+                <span class="b-card__en">Active Contribution</span>
+                <h3 class="b-card__jp">共に汗をかき、成果を掴む。</h3>
+                <p class="b-card__desc">
+                  答えを出すだけでなく、共に現場で汗をかき、成果が出るまで徹底的に並走。<br>
+                  机上の空論ではなく、実行力をもって貢献の証とします。
+                </p>
+                <div class="b-card__list">
+                  <span class="b-card__item">営業支援業</span>
+                  <span class="b-card__item">小売事業</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="b-card">
+              <span class="b-card__num">03</span>
+              <div class="b-card__content">
+                <span class="b-card__en">Potential Challenge</span>
+                <h3 class="b-card__jp">限界を超え、次なる可能性へ。</h3>
+                <p class="b-card__desc">
+                  現状に満足せず、常に次なる可能性を模索。<br>
+                  クライアントの限界を規定せず、共に高い目標へチャレンジし続けます。
+                </p>
+                <div class="b-card__list">
+                  <span class="b-card__item">イベント業</span>
+                  <span class="b-card__item">美容業</span>
+                </div>
+              </div>
+            </article>
+
           </div>
         </div>
       </section>
@@ -114,7 +210,6 @@ class BusinessSection extends HTMLElement {
   }
 }
 
-// コンポーネント定義名も business-section に変更
 if (!customElements.get('business-section')) {
   customElements.define('business-section', BusinessSection);
 }
