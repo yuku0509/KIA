@@ -9,7 +9,7 @@ class CompanySection extends HTMLElement {
     this.id = 'section-company';
     this.shadowRoot.innerHTML = `
       <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Oswald:wght@700&display=swap');
 
         :host {
           display: block;
@@ -20,46 +20,56 @@ class CompanySection extends HTMLElement {
         .company-section {
           position: relative;
           width: 100%;
-          padding: 100px 0;
+          /* 余白を他のセクションと統一 */
+          padding: 120px 0;
           color: #fff;
-          background-image: url('https://corp.tential.jp/wp-content/themes/tential/assets/img/top/posts/posts1.jpg');
-          background-size: cover;
-          background-position: center;
+          /* メインカラーのネイビーをベースに、少しリッチなグラデーション */
+          background: linear-gradient(135deg, #0B1E3D 0%, #162d50 100%);
+          overflow: hidden; /* はみ出した背景文字をカット */
         }
 
-        /* 画像の上に重ねる黒いフィルター */
-        .company-overlay {
+        /* 背景の巨大な「KIA」文字 */
+        .company-bg-text {
           position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-color: rgba(11, 30, 61, 0.8); /* ネイビー系の透過背景 */
-          z-index: 1;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-family: 'Oswald', sans-serif; /* 英語フォントで力強く */
+          font-size: 35vw; /* 画面幅に応じた巨大サイズ */
+          font-weight: 700;
+          line-height: 1;
+          color: #fff;
+          opacity: 0.03; /* うっすら見える程度に透過 */
+          pointer-events: none; /* マウス操作を邪魔しない */
+          z-index: 0;
+          white-space: nowrap;
+          user-select: none;
         }
 
         .l-container {
           position: relative;
-          z-index: 2; /* フィルターより上に表示 */
+          z-index: 2; /* 背景文字より上に表示 */
           max-width: 1000px;
           margin: 0 auto;
           padding: 0 40px;
         }
 
+        /* タイトル周り */
         .section-title {
-          font-size: 36px;
+          font-family: 'Noto Sans JP', sans-serif;
+          font-size: 42px;
           font-weight: 700;
-          margin-bottom: 60px;
+          margin: 0 0 60px;
           text-align: center;
-          letter-spacing: 0.1em;
+          letter-spacing: 0.05em;
         }
         .section-title span {
           display: block;
-          font-size: 16px;
-          font-weight: 400;
-          margin-top: 10px;
-          opacity: 0.8;
+          font-size: 14px;
+          font-weight: 700;
+          margin-top: 15px;
           color: #FF6600; /* アクセントカラー */
+          letter-spacing: 0.15em;
         }
 
         /* 会社概要リストのデザイン */
@@ -72,58 +82,71 @@ class CompanySection extends HTMLElement {
           display: flex;
           flex-wrap: wrap;
           border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-          padding: 25px 0; /* 行間も少し広げました */
+          padding: 30px 0; /* ゆったりとした行間 */
+          transition: background-color 0.3s;
+        }
+        
+        /* ホバー時に少しだけ明るくしてインタラクティブ感を出す */
+        .company-row:hover {
+          background-color: rgba(255, 255, 255, 0.05);
         }
 
         .company-dt {
-          width: 20%;
+          width: 25%; /* 左側の幅 */
           font-weight: 700;
           padding-right: 20px;
+          padding-left: 20px; /* 左端を少し空ける */
           box-sizing: border-box;
-          font-size: 18px; /* 【修正】文字サイズUP */
+          font-size: 16px;
           display: flex;
-          align-items: center; /* 上下中央揃え */
+          align-items: center;
+          color: #FF6600; /* 項目名をオレンジにして視認性アップ */
         }
 
         .company-dd {
-          width: 80%;
+          width: 75%; /* 右側の幅 */
           margin: 0;
           line-height: 1.8;
-          font-size: 18px; /* 【修正】文字サイズUP */
+          font-size: 16px;
           opacity: 0.95;
         }
 
         /* スマホ対応 */
         @media (max-width: 768px) {
           .company-section {
-            padding: 60px 0;
+            padding: 80px 0;
+          }
+          .company-bg-text {
+            font-size: 150px; /* スマホでは固定サイズ気味に */
+            opacity: 0.05; /* 少し濃くして存在感を出す */
           }
           .l-container {
             padding: 0 20px;
           }
           .section-title {
             font-size: 28px;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
           }
           .company-row {
-            display: block; /* 縦並びにする */
-            padding: 20px 0;
+            display: block; /* 縦並び */
+            padding: 25px 10px;
           }
           .company-dt {
             width: 100%;
             margin-bottom: 10px;
-            color: #FF6600;
-            font-size: 16px; /* 【修正】スマホもサイズUP */
+            padding-left: 0;
+            font-size: 15px;
           }
           .company-dd {
             width: 100%;
-            font-size: 16px; /* 【修正】スマホもサイズUP */
+            font-size: 15px;
           }
         }
       </style>
 
       <section class="company-section">
-        <div class="company-overlay"></div>
+        <div class="company-bg-text">KIA</div>
+
         <div class="l-container">
           <h2 class="section-title">
             COMPANY
