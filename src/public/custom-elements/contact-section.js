@@ -22,8 +22,7 @@ class ContactSection extends HTMLElement {
 
         .contact-section {
           width: 100%;
-          /* ▼変更: セクション全体を薄いグレーに統一 */
-          background-color: #F9F9F9; 
+          background-color: #F9F9F9; /* 全体を薄いグレーに統一 */
           padding: 120px 0;
           text-align: center;
           position: relative; 
@@ -32,31 +31,38 @@ class ContactSection extends HTMLElement {
         .l-container {
           max-width: 800px;
           margin: 0 auto;
-          /* ▼変更: 箱の背景色を削除（全体になじませる） */
-          background-color: transparent; 
-          padding: 0 40px; /* 上下のpaddingも削除（セクションで確保しているため） */
+          padding: 0 20px;
           position: relative;
           z-index: 2; 
         }
 
-        .section-title {
-          font-family: 'Noto Sans JP', sans-serif;
-          font-size: 36px;
-          font-weight: 700;
-          color: #0B1E3D; /* ネイビー */
-          margin-bottom: 30px;
-          margin-top: 0;
-          letter-spacing: 0.05em;
+        /* ▼▼▼ デザイン修正：LifeStyleセクションと全く同じスタイル定義 ▼▼▼ */
+        .contact-header {
+          text-align: center;
+          margin-bottom: 60px;
         }
-        .section-title span {
+
+        /* 英語タイトル (LifeStyleの .top-life__en-title を移植) */
+        .contact-en-title {
           display: block;
-          font-family: 'Oswald', sans-serif;
-          font-size: 14px;
-          color: #FF6600; /* アクセントカラー */
-          margin-top: 10px;
-          font-weight: 500;
-          letter-spacing: 0.15em;
+          font-size: 16px;
+          font-weight: bold;
+          color: #FF6600; /* アクセントカラー(オレンジ) */
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          margin-bottom: 15px;
+          font-family: 'Oswald', sans-serif; /* 欧文フォント */
         }
+
+        /* 日本語タイトル (LifeStyleの .top-life__jp-title を移植) */
+        .contact-jp-title {
+          font-size: 32px;
+          font-weight: bold;
+          line-height: 1.4;
+          margin: 0;
+          color: #111; /* LifeStyleに合わせて黒色に変更 */
+        }
+        /* ▲▲▲▲▲▲ */
 
         .contact-desc {
           font-family: 'Noto Sans JP', sans-serif;
@@ -66,7 +72,7 @@ class ContactSection extends HTMLElement {
           color: #333;
         }
 
-        /* ボタンデザイン */
+        /* ボタンデザイン（維持） */
         .contact-link-btn {
           display: inline-flex;
           justify-content: center;
@@ -94,11 +100,10 @@ class ContactSection extends HTMLElement {
 
         @media (max-width: 768px) {
           .contact-section { padding: 80px 0; }
-          .l-container {
-            margin: 0 20px;
-            padding: 0 20px; /* コンテナのpaddingを調整 */
-          }
-          .section-title { font-size: 28px; }
+          
+          /* スマホ時のフォントサイズ調整もLifeStyleに準拠 */
+          .contact-jp-title { font-size: 24px; }
+          
           .contact-desc { font-size: 14px; text-align: left; }
           .contact-link-btn { width: 100%; }
         }
@@ -106,11 +111,11 @@ class ContactSection extends HTMLElement {
 
       <section class="contact-section">
         <div class="l-container">
-          <h2 class="section-title">
-            <span>CONTACT</span>
-            お問い合わせ
-          </h2>
-
+          
+          <div class="contact-header">
+            <span class="contact-en-title">CONTACT</span>
+            <h2 class="contact-jp-title">お問い合わせ</h2>
+          </div>
           <p class="contact-desc">
             お仕事のご依頼、ご相談などございましたら<br>
             下記フォームよりお気軽にお問い合わせください。<br>
