@@ -9,42 +9,40 @@ class lifeStyleSection extends HTMLElement {
     this.id = 'section-lifestyle';
     this.shadowRoot.innerHTML = `
       <style>
-        /* ベーススタイル */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Oswald:wght@500&display=swap');
+
         :host {
           display: block;
           width: 100%;
           overflow: hidden;
-          font-family: "Helvetica Neue", Arial, sans-serif;
+          font-family: 'Noto Sans JP', sans-serif;
           position: relative;
           z-index: 10;
         }
         
         .top-life {
           position: relative;
-          /* ▼変更: 80pxから120pxに増やし、上下の空間を広く確保 */
           padding: 120px 0;
           background-color: #fff;
           z-index: 1;
         }
 
         .l-container {
-          max-width: 1200px;
+          max-width: 1000px;
           margin: 0 auto;
           padding: 0 20px;
           position: relative;
           z-index: 10; 
         }
 
-        /* --- タイトル周りのデザイン修正 --- */
+        /* --- タイトル周り --- */
         .top-life__heading {
-          /* ▼変更: タイトルと本文の間も少し広げてゆとりを持たせる */
           margin-bottom: 80px; 
           position: relative;
           z-index: 2;
           text-align: center;
         }
 
-        /* 見出し：LifeStyle（英語） */
         .top-life__en-title {
           display: block;
           font-size: 16px;
@@ -53,10 +51,9 @@ class lifeStyleSection extends HTMLElement {
           letter-spacing: 0.1em;
           text-transform: uppercase;
           margin-bottom: 15px;
-          font-family: 'DIN', sans-serif;
+          font-family: 'Oswald', sans-serif;
         }
 
-        /* 中見出し：挑戦が日常になる世界 */
         .top-life__jp-title {
           font-size: 32px;
           font-weight: bold;
@@ -65,7 +62,6 @@ class lifeStyleSection extends HTMLElement {
           color: #111;
         }
 
-        /* 本文エリア */
         .top-life__descWrap {
           max-width: 800px;
           margin: 0 auto;
@@ -79,161 +75,140 @@ class lifeStyleSection extends HTMLElement {
           display: inline-block;
         }
 
-        /* 流れる文字（Marquee） */
+        /* --- 背景の流れる文字 --- */
         .top-life__marqueeWrap {
           position: absolute;
-          top: 150px; /* ▼変更: 全体の高さ変更に合わせて位置調整 */
+          top: 20%;
           left: 0;
           width: 100%;
           overflow: hidden;
           white-space: nowrap;
-          opacity: 0.05;
+          opacity: 0.03;
           pointer-events: none;
           z-index: 0; 
         }
         .top-life__marquee {
           display: inline-block;
           font-size: 120px;
-          font-weight: bold;
+          font-weight: 700;
+          font-family: 'Oswald', sans-serif;
           padding-left: 50px;
-          animation: marquee 20s linear infinite;
+          animation: marquee 30s linear infinite;
+          color: #0B1E3D;
         }
         @keyframes marquee {
           0% { transform: translateX(0); }
           100% { transform: translateX(-100%); }
         }
 
-        /* 記事リスト */
-        .top-life__content {
+        /* --- ★変更点: CEO紹介への誘導エリア --- */
+        .ceo-teaser {
           position: relative;
-          z-index: 20;
-        }
-        .top-life__postList {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 60px; /* ▼変更: 写真同士の間隔も少し広げました(40px->60px) */
-          position: relative;
-          z-index: 20;
-        }
-        
-        .top-life__postItem {
-          background: #fff;
-          position: relative;
-          z-index: 20;
-        }
-
-        .top-life__postImgWrap {
-          position: relative; 
           width: 100%;
-          margin-bottom: 25px; /* ▼変更: 画像とタイトルの間を微調整 */
-          z-index: 20;
-        }
-
-        .top-life__postImg,
-        .top-life__postVideo {
-          width: 100%;
-          height: auto;
-          display: block;
-          object-fit: cover;
-          /* ▼追加: 画像に少し高級感を出すためのシャドウ（お好みで） */
-          box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
-        
-        /* 再生ボタンのオーバーレイ */
-        .video-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
+          background: linear-gradient(135deg, #0B1E3D 0%, #162d50 100%);
+          border-radius: 8px;
+          overflow: hidden;
+          color: #fff;
           display: flex;
-          justify-content: center;
           align-items: center;
-          background-color: rgba(0,0,0,0.3);
-          cursor: pointer;
-          z-index: 999; 
-          pointer-events: auto;
-          transition: opacity 0.3s;
-        }
-
-        .play-icon {
-          width: 60px;
-          height: 60px;
-          background-color: rgba(255, 255, 255, 0.8);
-          border-radius: 50%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          transition: transform 0.2s;
-          pointer-events: none; 
+          justify-content: space-between;
+          padding: 60px 80px;
+          box-shadow: 0 20px 40px rgba(11, 30, 61, 0.15);
+          transition: transform 0.3s ease;
         }
         
-        .video-overlay:hover .play-icon {
-          transform: scale(1.1);
-          background-color: #fff;
+        .ceo-teaser:hover {
+          transform: translateY(-5px);
         }
 
-        .play-triangle {
-          width: 0;
-          height: 0;
-          border-left: 20px solid #333;
-          border-top: 12px solid transparent;
-          border-bottom: 12px solid transparent;
-          margin-left: 4px;
+        .ceo-info {
+          flex: 1;
+          z-index: 2;
         }
 
-        .top-life__postIntro {
-          font-size: 12px;
-          color: #666;
-          margin-bottom: 10px;
-          display: block;
-        }
-        .top-life__postTitle {
-          font-size: 18px;
-          font-weight: bold;
-          margin: 0 0 15px;
-          line-height: 1.5;
-        }
-        .top-life__postDesc {
+        .ceo-label {
+          font-family: 'Oswald', sans-serif;
           font-size: 14px;
-          line-height: 1.6;
-          color: #333;
+          letter-spacing: 0.2em;
+          color: #FF6600;
           margin-bottom: 20px;
+          display: block;
         }
 
-        .c-btn1 {
+        .ceo-name-jp {
+          font-size: 36px;
+          font-weight: 700;
+          margin: 0 0 10px;
+          line-height: 1.2;
+        }
+        .ceo-name-en {
+          font-family: 'Oswald', sans-serif;
+          font-size: 18px;
+          opacity: 0.6;
+          margin-bottom: 30px;
+          display: block;
+          letter-spacing: 0.05em;
+        }
+
+        .ceo-message-digest {
+          font-size: 14px;
+          line-height: 1.8;
+          opacity: 0.8;
+          margin-bottom: 40px;
+          max-width: 400px;
+        }
+
+        /* 詳細へ飛ぶボタン */
+        .ceo-link-btn {
           display: inline-flex;
           align-items: center;
-          color: #111;
-          text-decoration: none;
-          font-weight: bold;
+          justify-content: center;
+          background-color: transparent;
+          border: 1px solid #FF6600;
+          color: #FF6600;
+          padding: 12px 40px;
           font-size: 14px;
-          border-bottom: 1px solid #111;
-          padding-bottom: 5px;
+          font-weight: bold;
+          text-decoration: none;
+          transition: all 0.3s;
+          font-family: 'Oswald', sans-serif;
+          letter-spacing: 0.1em;
         }
         
+        .ceo-link-btn:hover {
+          background-color: #FF6600;
+          color: #fff;
+        }
+
+        /* 背景装飾（薄い写真などがあればここに入れますが、今回は図形で） */
+        .ceo-bg-decoration {
+          position: absolute;
+          right: -50px;
+          bottom: -50px;
+          font-family: 'Oswald', sans-serif;
+          font-size: 200px;
+          font-weight: 700;
+          color: #fff;
+          opacity: 0.03;
+          line-height: 1;
+          pointer-events: none;
+        }
+
         @media (max-width: 768px) {
-          /* ▼変更: スマホ時の余白設定 */
-          .top-life {
-            padding: 80px 0; /* スマホでも80px確保して窮屈さを解消 */
+          .top-life { padding: 80px 0; }
+          .top-life__heading { margin-bottom: 50px; }
+          .top-life__jp-title { font-size: 24px; }
+          .top-life__desc { font-size: 14px; }
+          
+          .ceo-teaser {
+            padding: 40px 30px;
+            flex-direction: column;
+            text-align: center;
           }
-          .top-life__heading {
-            margin-bottom: 50px;
-          }
-          .top-life__postList {
-            grid-template-columns: 1fr;
-            gap: 60px;
-          }
-          .top-life__jp-title {
-            font-size: 24px;
-          }
-          .top-life__marquee {
-            font-size: 80px;
-          }
-          .top-life__desc {
-            font-size: 14px;
-            text-align: left;
-          }
+          .ceo-info { margin-bottom: 0; }
+          .ceo-message-digest { margin: 0 auto 30px; }
+          .ceo-link-btn { width: 100%; box-sizing: border-box; }
+          .ceo-bg-decoration { font-size: 120px; right: 0; bottom: 0; }
         }
       </style>
 
@@ -254,64 +229,31 @@ class lifeStyleSection extends HTMLElement {
               </p>
             </div>
           </div>
+          
           <div class="top-life__marqueeWrap">
-            <span class="top-life__marquee">KickInAnswer KickInAnswer KickInAnswer KickInAnswer</span>
-            <span class="top-life__marquee">KickInAnswer KickInAnswer KickInAnswer KickInAnswer</span>
+            <span class="top-life__marquee">KickInAnswer KickInAnswer KickInAnswer</span>
           </div>
 
-          <div class="top-life__content">
-            <div class="top-life__postList">
+          <div class="ceo-teaser">
+            <div class="ceo-bg-decoration">CEO</div>
+            <div class="ceo-info">
+              <span class="ceo-label">REPRESENTATIVE</span>
+              <h3 class="ceo-name-jp">谷口 純也</h3>
+              <span class="ceo-name-en">JUNYA TANIGUCHI</span>
               
-              <div class="top-life__postItem">
-                <div class="top-life__postImgWrap">
-                  <video 
-                    class="top-life__postVideo" 
-                    id="myVideo"
-                    src="https://video.wixstatic.com/video/db070e_45cef772d5264cf9b4ee53cbe3270b66/1080p/mp4/file.mp4" 
-                    playsinline
-                    muted
-                  ></video>
+              <p class="ceo-message-digest">
+                私の歩んできた道、そしてこれからのビジョン。<br>
+                これまでの遍歴をご紹介します。
+              </p>
 
-                  <div class="video-overlay" id="playBtn">
-                    <div class="play-icon">
-                      <div class="play-triangle"></div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="top-life__postContent">
-                  <h4 class="top-life__postTitle">モナコ旅行</h4>
-                  <p class="top-life__postDesc">仕事でモナコへ行きました</p>
-                </div>
-              </div>
-
-              <div class="top-life__postItem">
-                <div class="top-life__postImgWrap">
-                  <img class="top-life__postImg" src="https://corp.tential.jp/wp-content/themes/tential/assets/img/top/life/life-item2.jpg" alt="">
-                </div>
-                <div class="top-life__postContent">
-                  <h4 class="top-life__postTitle">バスケットボール</h4>
-                  <p class="top-life__postDesc">幼い頃からバスケが趣味です</p>
-                </div>
-              </div>
-
+              <a href="/about-ceo" class="ceo-link-btn">
+                ABOUT CEO
+              </a>
             </div>
           </div>
-        </div>
+          </div>
       </div>
     `;
-
-    const video = this.shadowRoot.getElementById('myVideo');
-    const playBtn = this.shadowRoot.getElementById('playBtn');
-
-    if (video && playBtn) {
-      playBtn.addEventListener('click', () => {
-        video.muted = false;
-        video.controls = true;
-        playBtn.style.display = 'none';
-        video.play();
-      });
-    }
   }
 }
 
