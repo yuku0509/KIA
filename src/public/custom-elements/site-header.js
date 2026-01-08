@@ -8,7 +8,6 @@ class SiteHeader extends HTMLElement {
   connectedCallback() {
     this.shadowRoot.innerHTML = `
       <style>
-        /* Google Fonts 読み込み */
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Noto+Serif+JP:wght@400;700&display=swap');
 
         :host {
@@ -16,14 +15,13 @@ class SiteHeader extends HTMLElement {
           position: fixed;
           top: 0; left: 0; width: 100%;
           z-index: 9999;
-          font-family: 'Noto Sans JP', sans-serif; /* ヘッダーはゴシック */
+          font-family: 'Noto Sans JP', sans-serif;
         }
 
         .header {
-          /* ベースカラー(#F4F4F4)を少し透過させる */
           background-color: rgba(244, 244, 244, 0.95);
           backdrop-filter: blur(8px);
-          box-shadow: 0 2px 10px rgba(11, 30, 61, 0.1); /* 影もネイビー系で薄く */
+          box-shadow: 0 2px 10px rgba(11, 30, 61, 0.1);
           padding: 15px 0;
           transition: padding 0.3s ease;
         }
@@ -39,8 +37,8 @@ class SiteHeader extends HTMLElement {
 
         .logo {
           font-size: 24px;
-          font-weight: 900; /* Extra Bold */
-          color: #0B1E3D; /* メインカラー */
+          font-weight: 900;
+          color: #0B1E3D;
           text-decoration: none;
           cursor: pointer;
           letter-spacing: 0.05em;
@@ -53,16 +51,15 @@ class SiteHeader extends HTMLElement {
 
         .nav-item a {
           text-decoration: none;
-          color: #0B1E3D; /* メインカラー */
+          color: #0B1E3D;
           font-size: 14px;
           font-weight: 700;
           text-transform: uppercase;
           cursor: pointer;
           position: relative;
-          letter-spacing: 0.1em; /* 文字間隔を広げる */
+          letter-spacing: 0.1em;
         }
 
-        /* アクセントカラー(#FF6600)の下線 */
         .nav-item a::after {
           content: '';
           position: absolute;
@@ -72,14 +69,13 @@ class SiteHeader extends HTMLElement {
         }
         .nav-item a:hover::after { width: 100%; }
 
-        /* ハンバーガーメニュー */
         .hamburger {
           display: none; background: none; border: none; cursor: pointer;
           width: 30px; height: 24px; position: relative; z-index: 1001;
         }
         .hamburger span {
           display: block; width: 100%; height: 2px;
-          background: #0B1E3D; /* メインカラー */
+          background: #0B1E3D;
           position: absolute; transition: 0.3s;
         }
         .hamburger span:nth-child(1) { top: 0; }
@@ -90,10 +86,9 @@ class SiteHeader extends HTMLElement {
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: rotate(-45deg); bottom: 11px; }
 
-        /* スマホメニュー */
         .sp-nav {
           position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
-          background: #F4F4F4; /* ベースカラー */
+          background: #F4F4F4;
           transition: 0.4s; display: flex; align-items: center; justify-content: center; z-index: 1000;
         }
         .sp-nav.active { right: 0; }
@@ -101,7 +96,7 @@ class SiteHeader extends HTMLElement {
         .sp-nav li { margin: 30px 0; }
         .sp-nav a {
           font-size: 20px; font-weight: bold;
-          color: #0B1E3D; /* メインカラー */
+          color: #0B1E3D;
           text-decoration: none;
           font-family: 'Noto Sans JP', sans-serif;
         }
@@ -142,7 +137,6 @@ class SiteHeader extends HTMLElement {
       </nav>
     `;
     
-    // --- 以下、ロジック部分は変更なし ---
     const links = this.shadowRoot.querySelectorAll('a[data-target]');
     const hamburger = this.shadowRoot.querySelector('.hamburger');
     const spNav = this.shadowRoot.querySelector('.sp-nav');
@@ -151,10 +145,30 @@ class SiteHeader extends HTMLElement {
       link.addEventListener('click', (e) => {
         e.preventDefault();
         const targetId = link.getAttribute('data-target');
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) {
-          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+        // ▼▼▼ 修正ポイント ▼▼▼
+        // document.getElementById ではなく、this.getRootNode() から探す
+        const root = this.getRootNode(); 
+        let targetElement = null;
+
+        // もし root がShadowRootなら、そこから探す（SiteAppの中にいる場合）
+        if (root instanceof ShadowRoot) {
+          targetElement = root.getElementById(targetId);
+        } else {
+          // 普通のHTMLにいる場合のフォールバック
+          targetElement = document.getElementById(targetId);
         }
+        // ▲▲▲▲▲▲
+
+        if (targetElement) {
+          // 要素が見つかればスクロール
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          // 要素が見つからない場合（＝プライバシーポリシーページなど別ページにいる場合）
+          // トップページへ遷移
+          window.location.href = '/' + '#' + targetId;
+        }
+
         if (hamburger.classList.contains('active')) {
           hamburger.classList.remove('active');
           spNav.classList.remove('active');
