@@ -22,8 +22,7 @@ class SiteApp extends HTMLElement {
           width: 100%;
         }
 
-        /* ▼▼▼ 修正: 余白設定を削除しました ▼▼▼ */
-        /* これにより、セクション同士の背景が隙間なくつながります */
+        /* セクション間の余白をゼロにする設定 */
         topphoto-section,
         story-section,
         business-section,
@@ -39,7 +38,6 @@ class SiteApp extends HTMLElement {
 
       <div class="app-wrapper">
         <site-header></site-header>
-        
         <topphoto-section id="section-top"></topphoto-section>
         <story-section     id="section-story"></story-section>
         <business-section  id="section-business"></business-section>
@@ -51,8 +49,9 @@ class SiteApp extends HTMLElement {
       </div>
     `;
 
+    // 必要な全コンポーネントのJS読み込み
     this.loadScripts([
-      'https://yuku0509.github.io/KIA/src/public/custom-elements/site-header.js',
+      'https://yuku0509.github.io/KIA/src/public/custom-elements/site-header.js', // ヘッダー
       'https://yuku0509.github.io/KIA/src/public/custom-elements/topPhoto-section.js',
       'https://yuku0509.github.io/KIA/src/public/custom-elements/story-section.js',
       'https://yuku0509.github.io/KIA/src/public/custom-elements/business-section.js',
@@ -65,6 +64,7 @@ class SiteApp extends HTMLElement {
 
   loadScripts(urls) {
     urls.forEach(url => {
+      // 重複読み込み防止
       if (!document.querySelector(`script[src="${url}"]`)) {
         const script = document.createElement('script');
         script.src = url;
