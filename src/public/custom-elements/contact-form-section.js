@@ -14,17 +14,16 @@ class ContactFormSection extends HTMLElement {
           display: block;
           width: 100%;
           font-family: 'Noto Sans JP', sans-serif;
-          background-color: #F9F9F9; /* 全体背景は薄いグレー */
+          background-color: #F9F9F9;
           color: #333;
         }
 
         .l-container {
           max-width: 800px;
           margin: 0 auto;
-          padding: 120px 20px 80px; /* ヘッダー分を考慮した余白 */
+          padding: 120px 20px 80px;
         }
 
-        /* --- タイトルエリア（他セクションと統一） --- */
         .section-header {
           text-align: center;
           margin-bottom: 60px;
@@ -33,7 +32,7 @@ class ContactFormSection extends HTMLElement {
           display: block;
           font-size: 16px;
           font-weight: bold;
-          color: #FF6600; /* オレンジ */
+          color: #FF6600;
           letter-spacing: 0.1em;
           text-transform: uppercase;
           margin-bottom: 15px;
@@ -42,12 +41,11 @@ class ContactFormSection extends HTMLElement {
         .section-jp-title {
           font-size: 32px;
           font-weight: bold;
-          color: #0B1E3D; /* ネイビー */
+          color: #0B1E3D;
           margin: 0;
           line-height: 1.4;
         }
 
-        /* --- フォーム本体 --- */
         .form-wrapper {
           background-color: #fff;
           padding: 60px;
@@ -67,7 +65,6 @@ class ContactFormSection extends HTMLElement {
           color: #0B1E3D;
         }
 
-        /* 必須バッジ */
         .badge-required {
           background-color: #FF6600;
           color: #fff;
@@ -77,7 +74,6 @@ class ContactFormSection extends HTMLElement {
           margin-left: 8px;
           vertical-align: middle;
         }
-        /* 任意バッジ */
         .badge-optional {
           background-color: #999;
           color: #fff;
@@ -88,7 +84,6 @@ class ContactFormSection extends HTMLElement {
           vertical-align: middle;
         }
 
-        /* 入力フィールド共通 */
         .form-input, 
         .form-textarea,
         .form-select {
@@ -116,7 +111,6 @@ class ContactFormSection extends HTMLElement {
           resize: vertical;
         }
 
-        /* 同意チェックボックス */
         .form-agree {
           text-align: center;
           margin: 40px 0;
@@ -125,18 +119,22 @@ class ContactFormSection extends HTMLElement {
           font-size: 14px;
           cursor: pointer;
         }
+        
+        /* リンクの色などを調整 */
         .agree-link {
           color: #FF6600;
           text-decoration: underline;
         }
+        .agree-link:hover {
+          text-decoration: none;
+        }
         
-        /* 送信ボタン */
         .btn-submit-wrap {
           text-align: center;
         }
         .btn-submit {
           display: inline-block;
-          background-color: #0B1E3D; /* 通常はネイビー */
+          background-color: #0B1E3D;
           color: #fff;
           font-size: 16px;
           font-weight: bold;
@@ -149,12 +147,11 @@ class ContactFormSection extends HTMLElement {
         }
 
         .btn-submit:hover {
-          background-color: #FF6600; /* ホバーでオレンジ */
+          background-color: #FF6600;
           transform: translateY(-2px);
           box-shadow: 0 10px 20px rgba(255, 102, 0, 0.3);
         }
 
-        /* スマホ対応 */
         @media (max-width: 768px) {
           .l-container { padding: 100px 20px 60px; }
           .form-wrapper { padding: 30px 20px; }
@@ -212,7 +209,7 @@ class ContactFormSection extends HTMLElement {
             <div class="form-agree">
               <label class="agree-label">
                 <input type="checkbox" required>
-                <a href="./privacy.html" target="_blank" class="agree-link">プライバシーポリシー</a>に同意する
+                <a href="/privacy-policy" target="_blank" class="agree-link">プライバシーポリシー</a>に同意する
               </label>
             </div>
 
