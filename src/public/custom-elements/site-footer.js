@@ -40,7 +40,7 @@ class SiteFooter extends HTMLElement {
 
         /* ▼▼▼【調整ポイント】フッターロゴのサイズ ▼▼▼ */
         .footer-logo img {
-          height: 150px; /* ここを好きな数値に変えてください (例: 100px, 200px) */
+          height: 200px; /* ここを好きな数値に変えてください (例: 100px, 200px) */
           display: block;
           width: auto;
         }
