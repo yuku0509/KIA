@@ -36,13 +36,13 @@ class ContactSection extends HTMLElement {
           z-index: 2; 
         }
 
-        /* ▼▼▼ デザイン修正：LifeStyleセクションと全く同じスタイル定義 ▼▼▼ */
+        /* デザイン定義 */
         .contact-header {
           text-align: center;
           margin-bottom: 60px;
         }
 
-        /* 英語タイトル (LifeStyleの .top-life__en-title を移植) */
+        /* 英語タイトル */
         .contact-en-title {
           display: block;
           font-size: 16px;
@@ -51,18 +51,17 @@ class ContactSection extends HTMLElement {
           letter-spacing: 0.1em;
           text-transform: uppercase;
           margin-bottom: 15px;
-          font-family: 'Oswald', sans-serif; /* 欧文フォント */
+          font-family: 'Oswald', sans-serif;
         }
 
-        /* 日本語タイトル (LifeStyleの .top-life__jp-title を移植) */
+        /* 日本語タイトル */
         .contact-jp-title {
           font-size: 32px;
           font-weight: bold;
           line-height: 1.4;
           margin: 0;
-          color: #111; /* LifeStyleに合わせて黒色に変更 */
+          color: #111;
         }
-        /* ▲▲▲▲▲▲ */
 
         .contact-desc {
           font-family: 'Noto Sans JP', sans-serif;
@@ -72,7 +71,7 @@ class ContactSection extends HTMLElement {
           color: #333;
         }
 
-        /* ボタンデザイン（維持） */
+        /* ボタンデザイン */
         .contact-link-btn {
           display: inline-flex;
           justify-content: center;
@@ -100,10 +99,7 @@ class ContactSection extends HTMLElement {
 
         @media (max-width: 768px) {
           .contact-section { padding: 80px 0; }
-          
-          /* スマホ時のフォントサイズ調整もLifeStyleに準拠 */
           .contact-jp-title { font-size: 24px; }
-          
           .contact-desc { font-size: 14px; text-align: left; }
           .contact-link-btn { width: 100%; }
         }
@@ -122,7 +118,7 @@ class ContactSection extends HTMLElement {
             共に未来をつくるパートナーをお待ちしております。
           </p>
 
-          <a href="https://docs.google.com/forms/" target="_blank" class="contact-link-btn">
+          <a href="https://www.kick-in-answer.com/contact-form" class="contact-link-btn">
             お問い合わせフォームへ
           </a>
 
