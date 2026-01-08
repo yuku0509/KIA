@@ -28,7 +28,7 @@ class SiteApp extends HTMLElement {
           width: 100%;
           height: 100vh;
           background-color: #0B1E3D; /* ネイビー */
-          z-index: 99999; /* 最前面 */
+          z-index: 99999;
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -36,46 +36,63 @@ class SiteApp extends HTMLElement {
           transition: opacity 0.8s ease, visibility 0.8s ease;
         }
 
-        /* ロード完了後に消すためのクラス */
         .loading-screen.hidden {
           opacity: 0;
           visibility: hidden;
           pointer-events: none;
         }
 
-        .loading-logo {
-          font-family: 'Oswald', sans-serif;
-          font-size: 80px;
-          color: #fff;
-          font-weight: 700;
-          letter-spacing: 0.1em;
-          margin-bottom: 20px;
+        /* ロゴのコンテナ（重ね合わせの基準） */
+        .loading-logo-container {
+          position: relative;
+          width: 140px; /* 文字幅に合わせて調整 */
+          height: 90px; /* 文字高さに合わせて調整 */
+          margin-bottom: 10px;
           opacity: 0;
           transform: translateY(20px);
           animation: logoFadeIn 0.8s ease forwards;
         }
 
-        .loading-bar-container {
-          width: 240px;
-          height: 4px;
-          background-color: rgba(255, 255, 255, 0.2);
-          border-radius: 2px;
-          overflow: hidden;
-          margin-bottom: 10px;
+        /* ベースの白い文字と、重なるオレンジの文字 */
+        .logo-base, .logo-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          font-family: 'Oswald', sans-serif;
+          font-size: 80px;
+          font-weight: 700;
+          letter-spacing: 0.1em;
+          text-align: center;
+          line-height: 1;
         }
 
-        .loading-bar {
-          width: 0%;
-          height: 100%;
-          background-color: #FF6600; /* オレンジ */
-          transition: width 0.1s linear;
+        /* ベースは白 */
+        .logo-base {
+          color: #fff;
+          z-index: 1;
         }
 
+        /* 上に重なるオレンジ（初期は隠れている） */
+        .logo-overlay {
+          color: #FF6600; /* オレンジ */
+          z-index: 2;
+          /* clip-pathで表示領域を制御。初期は上端を100%カットして見えなくする */
+          clip-path: inset(100% 0 0 0);
+          /* JSでの変更を滑らかにつなぐ */
+          transition: clip-path 0.1s linear; 
+        }
+
+        /* 数字のデザイン（バーを消したので少し調整） */
         .loading-percent {
           font-family: 'Oswald', sans-serif;
-          font-size: 14px;
-          color: #FF6600;
+          font-size: 16px;
+          font-weight: bold;
+          color: #FF6600; /* 数字もオレンジで統一 */
           letter-spacing: 0.1em;
+          margin-top: 5px;
+          opacity: 0; /* ロゴと同時にふわっと出す */
+          animation: logoFadeIn 0.8s ease 0.2s forwards; /* 少し遅らせて表示 */
         }
 
         @keyframes logoFadeIn {
@@ -87,10 +104,10 @@ class SiteApp extends HTMLElement {
         /* --- ▲ ローディング画面ここまで ▲ --- */
 
 
-        /* --- メインコンテンツ（最初は隠しておく） --- */
+        /* メインコンテンツ（フェードイン用） */
         .app-wrapper {
           opacity: 0;
-          transition: opacity 1.0s ease;
+          transition: opacity 1.0s ease 0.5s; /* 少し遅らせてメインを表示 */
         }
         .app-wrapper.visible {
           opacity: 1;
@@ -102,7 +119,6 @@ class SiteApp extends HTMLElement {
           margin-bottom: 0;
         }
         
-        /* 念のため余白ゼロ設定 */
         topphoto-section, story-section, business-section,
         lifestyle-section, company-section, contact-section,
         site-header, site-footer {
@@ -111,28 +127,25 @@ class SiteApp extends HTMLElement {
       </style>
 
       <div class="loading-screen" id="loadingScreen">
-        <div class="loading-logo">KIA</div>
-        <div class="loading-bar-container">
-          <div class="loading-bar" id="loadingBar"></div>
+        <div class="loading-logo-container">
+          <div class="logo-base">KIA</div>
+          <div class="logo-overlay" id="logoOverlay">KIA</div>
         </div>
         <div class="loading-percent" id="loadingPercent">0%</div>
       </div>
 
       <div class="app-wrapper" id="appWrapper">
         <site-header></site-header>
-        
         <topphoto-section id="section-top"></topphoto-section>
         <story-section     id="section-story"></story-section>
         <business-section  id="section-business"></business-section>
         <lifestyle-section id="section-lifestyle"></lifestyle-section>
         <company-section   id="section-company"></company-section>
         <contact-section   id="section-contact"></contact-section>
-
         <site-footer></site-footer>
       </div>
     `;
 
-    // JSファイルの読み込み開始
     this.loadScripts([
       'https://yuku0509.github.io/KIA/src/public/custom-elements/site-header.js',
       'https://yuku0509.github.io/KIA/src/public/custom-elements/topPhoto-section.js',
@@ -144,7 +157,6 @@ class SiteApp extends HTMLElement {
       'https://yuku0509.github.io/KIA/src/public/custom-elements/site-footer.js'
     ]);
 
-    // ▼▼▼ ローディングアニメーションの実行 ▼▼▼
     this.runLoadingAnimation();
   }
 
@@ -160,36 +172,40 @@ class SiteApp extends HTMLElement {
     });
   }
 
-  // ローディングアニメーションのロジック
+  // ▼▼▼ アニメーションロジックの変更 ▼▼▼
   runLoadingAnimation() {
     const screen = this.shadowRoot.getElementById('loadingScreen');
-    const bar = this.shadowRoot.getElementById('loadingBar');
+    // バーの代わりに、オレンジ色の重ね文字を取得
+    const logoOverlay = this.shadowRoot.getElementById('logoOverlay');
     const percent = this.shadowRoot.getElementById('loadingPercent');
     const content = this.shadowRoot.getElementById('appWrapper');
 
     let progress = 0;
     
-    // 0%から100%までカウントアップさせるタイマー
     const interval = setInterval(() => {
-      // 少しランダムに進めることでリアルっぽさを出す
-      progress += Math.floor(Math.random() * 5) + 1;
+      // 進捗のスピード調整（少しゆっくりめにしてみる）
+      progress += Math.floor(Math.random() * 3) + 1;
 
       if (progress >= 100) {
         progress = 100;
         clearInterval(interval);
         
-        // 100%になったら少し待ってからフェードアウト
+        // 完了後少し待ってからフェードアウト
         setTimeout(() => {
-          screen.classList.add('hidden'); // ローディングを隠す
-          content.classList.add('visible'); // 中身を表示する
-        }, 500);
+          screen.classList.add('hidden');
+          content.classList.add('visible');
+        }, 800);
       }
 
-      // 画面更新
-      bar.style.width = `${progress}%`;
+      // ▼▼▼ ここがポイント！ ▼▼▼
+      // progress(%) に合わせて、オレンジ色の文字の表示領域（clip-path）を変化させる
+      // inset(上 右 下 左) なので、「上」を (100 - progress)% ずつ削っていくイメージ
+      logoOverlay.style.clipPath = `inset(${100 - progress}% 0 0 0)`;
+      
+      // 数字の更新
       percent.textContent = `${progress}%`;
 
-    }, 30); // 30msごとに更新（速度調整はここ）
+    }, 50); // 更新間隔
   }
 }
 
