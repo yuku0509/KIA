@@ -46,7 +46,7 @@ class SiteHeader extends HTMLElement {
         
         /* ロゴ画像のサイズ調整 */
         .logo img { 
-          height: 40px; /* 少し大きくしました（元の30pxだと細かすぎる可能性があるため） */
+          height: 60px; /* ここを 40px から 60px に変更しました */
           width: auto;
           display: block; 
         }
@@ -152,7 +152,6 @@ class SiteHeader extends HTMLElement {
         e.preventDefault();
         const targetId = link.getAttribute('data-target');
         
-        // シャドウDOM内または通常のDOMからターゲットを探す
         const root = this.getRootNode(); 
         let targetElement = null;
 
@@ -165,7 +164,6 @@ class SiteHeader extends HTMLElement {
         if (targetElement) {
           targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
         } else {
-          // 要素が見つからない場合はトップページへ遷移
           window.location.href = '/' + '#' + targetId;
         }
 

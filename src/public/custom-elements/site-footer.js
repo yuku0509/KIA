@@ -39,7 +39,7 @@ class SiteFooter extends HTMLElement {
         }
 
         .footer-logo img {
-          height: 35px; /* ロゴを見やすくするため少し大きく調整しました */
+          height: 50px; /* ここを 35px から 50px に変更しました */
           display: block;
           width: auto;
         }
