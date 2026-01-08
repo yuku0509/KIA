@@ -35,7 +35,6 @@ class lifeStyleSection extends HTMLElement {
           z-index: 10; 
         }
 
-        /* --- タイトル周り --- */
         .top-life__heading {
           margin-bottom: 80px; 
           position: relative;
@@ -75,7 +74,6 @@ class lifeStyleSection extends HTMLElement {
           display: inline-block;
         }
 
-        /* --- 背景の流れる文字 --- */
         .top-life__marqueeWrap {
           position: absolute;
           top: 20%;
@@ -101,7 +99,7 @@ class lifeStyleSection extends HTMLElement {
           100% { transform: translateX(-100%); }
         }
 
-        /* --- CEO紹介への誘導エリア --- */
+        /* --- CEO紹介エリア --- */
         .ceo-teaser {
           position: relative;
           width: 100%;
@@ -110,41 +108,44 @@ class lifeStyleSection extends HTMLElement {
           overflow: hidden;
           color: #fff;
           display: flex;
-          align-items: center;
-          justify-content: space-between; /* 左右に配置 */
+          /* ▼変更: 'stretch'にすることで、写真の高さをテキストエリアの高さに強制的に合わせます */
+          align-items: stretch; 
+          justify-content: space-between;
           padding: 60px 80px;
           box-shadow: 0 20px 40px rgba(11, 30, 61, 0.15);
           transition: transform 0.3s ease;
-          box-sizing: border-box; /* パディングを含めた幅計算 */
+          box-sizing: border-box;
         }
         
         .ceo-teaser:hover {
           transform: translateY(-5px);
         }
 
-        /* テキスト情報エリア */
         .ceo-info {
           flex: 1;
           z-index: 2;
-          padding-right: 40px; /* 写真との余白 */
+          padding-right: 60px; /* 写真との距離 */
+          display: flex;
+          flex-direction: column;
+          justify-content: center; /* 上下中央寄せ */
         }
 
-        /* ▼▼▼ 追加: 写真エリアのデザイン ▼▼▼ */
+        /* ▼▼▼ 写真エリアの修正 ▼▼▼ */
         .ceo-photo-wrap {
-          flex-shrink: 0; /* 縮まないようにする */
-          width: 200px;
-          height: 200px;
+          flex-shrink: 0;
+          width: 280px; /* 横幅を指定 */
           position: relative;
           z-index: 2;
+          /* 高さは stretch により自動で親要素（＝テキストエリアの高さ）と一致します */
         }
 
         .ceo-photo-img {
           width: 100%;
           height: 100%;
-          object-fit: cover; /* 画像の比率を保ったままトリミング */
-          border-radius: 50%; /* 正円にする */
-          border: 4px solid rgba(255, 255, 255, 0.2); /* 半透明の白い枠線 */
-          box-shadow: 0 10px 20px rgba(0,0,0,0.3); /* 影をつけて浮き上がらせる */
+          object-fit: cover; /* 枠に合わせてトリミング */
+          /* ▼変更: 丸ではなく、角丸の四角形に変更 */
+          border-radius: 12px; 
+          box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
         /* ▲▲▲▲▲▲ */
 
@@ -153,8 +154,10 @@ class lifeStyleSection extends HTMLElement {
           font-size: 14px;
           letter-spacing: 0.2em;
           color: #FF6600;
+          margin-top: 0; /* 上端を揃えるためにマージン削除 */
           margin-bottom: 20px;
           display: block;
+          line-height: 1;
         }
 
         .ceo-name-jp {
@@ -194,6 +197,7 @@ class lifeStyleSection extends HTMLElement {
           transition: all 0.3s;
           font-family: 'Oswald', sans-serif;
           letter-spacing: 0.1em;
+          width: fit-content; /* ボタン幅を中身に合わせる */
         }
         
         .ceo-link-btn:hover {
@@ -201,7 +205,6 @@ class lifeStyleSection extends HTMLElement {
           color: #fff;
         }
 
-        /* 背景装飾 */
         .ceo-bg-decoration {
           position: absolute;
           right: -50px;
@@ -219,30 +222,29 @@ class lifeStyleSection extends HTMLElement {
           .top-life { padding: 80px 0; }
           .top-life__heading { margin-bottom: 50px; }
           .top-life__jp-title { font-size: 24px; }
-          .top-life__desc { font-size: 14px; }
           
           .ceo-teaser {
             padding: 50px 30px;
-            /* スマホでは縦並び（写真が上に来るように逆順指定） */
-            flex-direction: column-reverse; 
+            flex-direction: column-reverse; /* スマホでは写真を上に */
             text-align: center;
+            align-items: center; /* 中央揃えに戻す */
           }
           
           .ceo-info { 
-            padding-right: 0; /* 横の余白リセット */
+            padding-right: 0; 
             width: 100%;
+            display: block;
           }
 
-          /* スマホでの写真位置調整 */
           .ceo-photo-wrap {
-            width: 150px;
-            height: 150px;
-            margin-bottom: 30px; /* 名前との間隔 */
+            width: 100%;
+            max-width: 300px;
+            height: 250px; /* スマホ時は高さを固定 */
+            margin-bottom: 30px;
           }
 
-          .ceo-message-digest { margin: 0 auto 30px; }
           .ceo-link-btn { width: 100%; box-sizing: border-box; }
-          .ceo-bg-decoration { font-size: 120px; right: 0; bottom: 0; }
+          .ceo-label { margin-top: 0; }
         }
       </style>
 
@@ -289,7 +291,8 @@ class lifeStyleSection extends HTMLElement {
             <div class="ceo-photo-wrap">
               <img src="https://static.wixstatic.com/media/db070e_d594e9ce19f3438bbd072e9366f594e1~mv2.jpg" alt="谷口 純也" class="ceo-photo-img">
             </div>
-            </div>
+
+          </div>
 
         </div>
       </div>
