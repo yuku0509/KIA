@@ -101,7 +101,7 @@ class lifeStyleSection extends HTMLElement {
           100% { transform: translateX(-100%); }
         }
 
-        /* --- ★変更点: CEO紹介への誘導エリア --- */
+        /* --- CEO紹介への誘導エリア --- */
         .ceo-teaser {
           position: relative;
           width: 100%;
@@ -111,20 +111,42 @@ class lifeStyleSection extends HTMLElement {
           color: #fff;
           display: flex;
           align-items: center;
-          justify-content: space-between;
+          justify-content: space-between; /* 左右に配置 */
           padding: 60px 80px;
           box-shadow: 0 20px 40px rgba(11, 30, 61, 0.15);
           transition: transform 0.3s ease;
+          box-sizing: border-box; /* パディングを含めた幅計算 */
         }
         
         .ceo-teaser:hover {
           transform: translateY(-5px);
         }
 
+        /* テキスト情報エリア */
         .ceo-info {
           flex: 1;
           z-index: 2;
+          padding-right: 40px; /* 写真との余白 */
         }
+
+        /* ▼▼▼ 追加: 写真エリアのデザイン ▼▼▼ */
+        .ceo-photo-wrap {
+          flex-shrink: 0; /* 縮まないようにする */
+          width: 200px;
+          height: 200px;
+          position: relative;
+          z-index: 2;
+        }
+
+        .ceo-photo-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover; /* 画像の比率を保ったままトリミング */
+          border-radius: 50%; /* 正円にする */
+          border: 4px solid rgba(255, 255, 255, 0.2); /* 半透明の白い枠線 */
+          box-shadow: 0 10px 20px rgba(0,0,0,0.3); /* 影をつけて浮き上がらせる */
+        }
+        /* ▲▲▲▲▲▲ */
 
         .ceo-label {
           font-family: 'Oswald', sans-serif;
@@ -158,7 +180,6 @@ class lifeStyleSection extends HTMLElement {
           max-width: 400px;
         }
 
-        /* 詳細へ飛ぶボタン */
         .ceo-link-btn {
           display: inline-flex;
           align-items: center;
@@ -180,7 +201,7 @@ class lifeStyleSection extends HTMLElement {
           color: #fff;
         }
 
-        /* 背景装飾（薄い写真などがあればここに入れますが、今回は図形で） */
+        /* 背景装飾 */
         .ceo-bg-decoration {
           position: absolute;
           right: -50px;
@@ -201,11 +222,24 @@ class lifeStyleSection extends HTMLElement {
           .top-life__desc { font-size: 14px; }
           
           .ceo-teaser {
-            padding: 40px 30px;
-            flex-direction: column;
+            padding: 50px 30px;
+            /* スマホでは縦並び（写真が上に来るように逆順指定） */
+            flex-direction: column-reverse; 
             text-align: center;
           }
-          .ceo-info { margin-bottom: 0; }
+          
+          .ceo-info { 
+            padding-right: 0; /* 横の余白リセット */
+            width: 100%;
+          }
+
+          /* スマホでの写真位置調整 */
+          .ceo-photo-wrap {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 30px; /* 名前との間隔 */
+          }
+
           .ceo-message-digest { margin: 0 auto 30px; }
           .ceo-link-btn { width: 100%; box-sizing: border-box; }
           .ceo-bg-decoration { font-size: 120px; right: 0; bottom: 0; }
@@ -236,6 +270,7 @@ class lifeStyleSection extends HTMLElement {
 
           <div class="ceo-teaser">
             <div class="ceo-bg-decoration">CEO</div>
+            
             <div class="ceo-info">
               <span class="ceo-label">REPRESENTATIVE</span>
               <h3 class="ceo-name-jp">谷口 純也</h3>
@@ -250,8 +285,13 @@ class lifeStyleSection extends HTMLElement {
                 ABOUT CEO
               </a>
             </div>
-          </div>
-          </div>
+
+            <div class="ceo-photo-wrap">
+              <img src="https://static.wixstatic.com/media/db070e_d594e9ce19f3438bbd072e9366f594e1~mv2.jpg" alt="谷口 純也" class="ceo-photo-img">
+            </div>
+            </div>
+
+        </div>
       </div>
     `;
   }
