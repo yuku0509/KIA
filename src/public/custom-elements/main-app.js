@@ -20,7 +20,7 @@ class SiteApp extends HTMLElement {
           position: relative;
         }
 
-        /* --- ▼ ローディング画面のスタイル ▼ --- */
+        /* --- ローディング画面 --- */
         .loading-screen {
           position: fixed;
           top: 0;
@@ -42,57 +42,58 @@ class SiteApp extends HTMLElement {
           pointer-events: none;
         }
 
-        /* ロゴのコンテナ（重ね合わせの基準） */
+        /* 文字を重ねるためのコンテナ */
         .loading-logo-container {
           position: relative;
-          width: 140px; /* 文字幅に合わせて調整 */
-          height: 90px; /* 文字高さに合わせて調整 */
+          display: inline-block; /* 文字サイズにフィットさせる */
           margin-bottom: 10px;
           opacity: 0;
           transform: translateY(20px);
           animation: logoFadeIn 0.8s ease forwards;
         }
 
-        /* ベースの白い文字と、重なるオレンジの文字 */
-        .logo-base, .logo-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
+        /* 共通フォント設定 */
+        .logo-text {
           font-family: 'Oswald', sans-serif;
           font-size: 80px;
           font-weight: 700;
           letter-spacing: 0.1em;
-          text-align: center;
           line-height: 1;
         }
 
-        /* ベースは白 */
+        /* ベース（白）: これがコンテナの高さを確保する */
         .logo-base {
+          position: relative;
           color: #fff;
           z-index: 1;
         }
 
-        /* 上に重なるオレンジ（初期は隠れている） */
+        /* 重ねる文字（オレンジ） */
         .logo-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
           color: #FF6600; /* オレンジ */
           z-index: 2;
-          /* clip-pathで表示領域を制御。初期は上端を100%カットして見えなくする */
-          clip-path: inset(100% 0 0 0);
-          /* JSでの変更を滑らかにつなぐ */
+          
+          /* ▼ここがポイント: 右側を100%カットしておく（左から表示させる準備） */
+          clip-path: inset(0 100% 0 0);
+          
           transition: clip-path 0.1s linear; 
         }
 
-        /* 数字のデザイン（バーを消したので少し調整） */
+        /* パーセント表示 */
         .loading-percent {
           font-family: 'Oswald', sans-serif;
           font-size: 16px;
           font-weight: bold;
-          color: #FF6600; /* 数字もオレンジで統一 */
+          color: #FF6600;
           letter-spacing: 0.1em;
           margin-top: 5px;
-          opacity: 0; /* ロゴと同時にふわっと出す */
-          animation: logoFadeIn 0.8s ease 0.2s forwards; /* 少し遅らせて表示 */
+          opacity: 0;
+          animation: logoFadeIn 0.8s ease 0.2s forwards;
         }
 
         @keyframes logoFadeIn {
@@ -101,13 +102,11 @@ class SiteApp extends HTMLElement {
             transform: translateY(0);
           }
         }
-        /* --- ▲ ローディング画面ここまで ▲ --- */
 
-
-        /* メインコンテンツ（フェードイン用） */
+        /* メインコンテンツ */
         .app-wrapper {
           opacity: 0;
-          transition: opacity 1.0s ease 0.5s; /* 少し遅らせてメインを表示 */
+          transition: opacity 1.0s ease 0.5s;
         }
         .app-wrapper.visible {
           opacity: 1;
@@ -128,8 +127,8 @@ class SiteApp extends HTMLElement {
 
       <div class="loading-screen" id="loadingScreen">
         <div class="loading-logo-container">
-          <div class="logo-base">KIA</div>
-          <div class="logo-overlay" id="logoOverlay">KIA</div>
+          <div class="logo-text logo-base">KIA</div>
+          <div class="logo-text logo-overlay" id="logoOverlay">KIA</div>
         </div>
         <div class="loading-percent" id="loadingPercent">0%</div>
       </div>
@@ -172,10 +171,8 @@ class SiteApp extends HTMLElement {
     });
   }
 
-  // ▼▼▼ アニメーションロジックの変更 ▼▼▼
   runLoadingAnimation() {
     const screen = this.shadowRoot.getElementById('loadingScreen');
-    // バーの代わりに、オレンジ色の重ね文字を取得
     const logoOverlay = this.shadowRoot.getElementById('logoOverlay');
     const percent = this.shadowRoot.getElementById('loadingPercent');
     const content = this.shadowRoot.getElementById('appWrapper');
@@ -183,29 +180,27 @@ class SiteApp extends HTMLElement {
     let progress = 0;
     
     const interval = setInterval(() => {
-      // 進捗のスピード調整（少しゆっくりめにしてみる）
+      // 進捗速度（ランダムに1〜3ずつ増える）
       progress += Math.floor(Math.random() * 3) + 1;
 
       if (progress >= 100) {
         progress = 100;
         clearInterval(interval);
         
-        // 完了後少し待ってからフェードアウト
         setTimeout(() => {
           screen.classList.add('hidden');
           content.classList.add('visible');
         }, 800);
       }
 
-      // ▼▼▼ ここがポイント！ ▼▼▼
-      // progress(%) に合わせて、オレンジ色の文字の表示領域（clip-path）を変化させる
-      // inset(上 右 下 左) なので、「上」を (100 - progress)% ずつ削っていくイメージ
-      logoOverlay.style.clipPath = `inset(${100 - progress}% 0 0 0)`;
+      // ▼▼▼ 修正: 左から右へワイプ ▼▼▼
+      // inset(上 右 下 左)
+      // 右側を (100 - progress)% だけカットする = 左側から progress% 分だけ見える
+      logoOverlay.style.clipPath = `inset(0 ${100 - progress}% 0 0)`;
       
-      // 数字の更新
       percent.textContent = `${progress}%`;
 
-    }, 50); // 更新間隔
+    }, 40); // 速度調整
   }
 }
 
