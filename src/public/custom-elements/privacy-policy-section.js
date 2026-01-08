@@ -293,7 +293,7 @@ class PrivacyPolicySection extends HTMLElement {
         </div>
 
         <div class="policy-footer">
-          <p>制定日：202●年●月●日</p>
+          <p>制定日：202●年1月9日</p>
           <p>株式会社KIA 代表取締役 谷口 純也</p>
         </div>
 
