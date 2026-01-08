@@ -44,9 +44,9 @@ class SiteHeader extends HTMLElement {
           letter-spacing: 0.05em;
         }
         
-        /* ロゴ画像のサイズ調整 */
+        /* ▼▼▼【調整ポイント】ヘッダーロゴのサイズ ▼▼▼ */
         .logo img { 
-          height: 60px; /* ここを 40px から 60px に変更しました */
+          height: 80px; /* ここを好きな数値に変えてください (例: 60px, 100px) */
           width: auto;
           display: block; 
         }

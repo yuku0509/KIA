@@ -38,8 +38,9 @@ class SiteFooter extends HTMLElement {
           margin-bottom: 20px;
         }
 
+        /* ▼▼▼【調整ポイント】フッターロゴのサイズ ▼▼▼ */
         .footer-logo img {
-          height: 50px; /* ここを 35px から 50px に変更しました */
+          height: 150px; /* ここを好きな数値に変えてください (例: 100px, 200px) */
           display: block;
           width: auto;
         }
