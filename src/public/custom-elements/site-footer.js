@@ -31,19 +31,17 @@ class SiteFooter extends HTMLElement {
           z-index: 2;
         }
 
-        /* --- 変更点：線（border-bottom）を削除しました --- */
         .footer-top {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 20px; /* 余白調整 */
-          /* border-bottom: 1px solid #ddd; ←削除 */
-          /* padding-bottom: 40px; ←削除 */
+          margin-bottom: 20px;
         }
 
         .footer-logo img {
-          height: 24px;
+          height: 35px; /* ロゴを見やすくするため少し大きく調整しました */
           display: block;
+          width: auto;
         }
 
         .footer-sns {
@@ -68,21 +66,19 @@ class SiteFooter extends HTMLElement {
           transform: translateY(-2px);
         }
 
-        /* --- 変更点：SVGではなく画像のスタイルを設定 --- */
         .sns-link img {
           width: 100%;
           height: 100%;
-          object-fit: contain; /* 画像を枠内に綺麗に収める */
+          object-fit: contain;
           display: block;
           pointer-events: none; 
         }
 
-        /* --- 変更点：ここに線（border-bottom）を移動しました --- */
         .footer-links {
           text-align: center;
           margin-bottom: 20px;
-          padding-bottom: 30px; /* 線と文字の間の余白 */
-          border-bottom: 1px solid #ddd; /* ★ここに線を追加 */
+          padding-bottom: 30px;
+          border-bottom: 1px solid #ddd;
           position: relative;
           z-index: 2;
         }
@@ -127,7 +123,7 @@ class SiteFooter extends HTMLElement {
           
           <div class="footer-top">
             <div class="footer-logo">
-               <img src="https://corp.tential.jp/wp-content/themes/tential/assets/img/logo.svg" alt="TENTIAL">
+               <img src="https://static.wixstatic.com/media/db070e_6b2061132a7d4fe48c05cad0283064dd~mv2.png" alt="KIA">
             </div>
 
             <div class="footer-sns">

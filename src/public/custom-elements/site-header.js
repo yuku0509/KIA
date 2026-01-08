@@ -43,7 +43,13 @@ class SiteHeader extends HTMLElement {
           cursor: pointer;
           letter-spacing: 0.05em;
         }
-        .logo img { height: 30px; display: block; }
+        
+        /* ロゴ画像のサイズ調整 */
+        .logo img { 
+          height: 40px; /* 少し大きくしました（元の30pxだと細かすぎる可能性があるため） */
+          width: auto;
+          display: block; 
+        }
 
         .nav-list {
           display: flex; list-style: none; margin: 0; padding: 0; gap: 30px;
@@ -110,7 +116,7 @@ class SiteHeader extends HTMLElement {
       <header class="header">
         <div class="l-container">
           <a class="logo" data-target="section-top">
-            <img src="https://corp.tential.jp/wp-content/themes/tential/assets/img/logo.svg" alt="TENTIAL">
+            <img src="https://static.wixstatic.com/media/db070e_26770223df4145ecb7d86478a07458ac~mv2.png" alt="KIA">
           </a>
           <ul class="nav-list">
             <li class="nav-item"><a data-target="section-top">Top</a></li>
@@ -146,26 +152,20 @@ class SiteHeader extends HTMLElement {
         e.preventDefault();
         const targetId = link.getAttribute('data-target');
         
-        // ▼▼▼ 修正ポイント ▼▼▼
-        // document.getElementById ではなく、this.getRootNode() から探す
+        // シャドウDOM内または通常のDOMからターゲットを探す
         const root = this.getRootNode(); 
         let targetElement = null;
 
-        // もし root がShadowRootなら、そこから探す（SiteAppの中にいる場合）
         if (root instanceof ShadowRoot) {
           targetElement = root.getElementById(targetId);
         } else {
-          // 普通のHTMLにいる場合のフォールバック
           targetElement = document.getElementById(targetId);
         }
-        // ▲▲▲▲▲▲
 
         if (targetElement) {
-          // 要素が見つかればスクロール
           targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
         } else {
-          // 要素が見つからない場合（＝プライバシーポリシーページなど別ページにいる場合）
-          // トップページへ遷移
+          // 要素が見つからない場合はトップページへ遷移
           window.location.href = '/' + '#' + targetId;
         }
 
