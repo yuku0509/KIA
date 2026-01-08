@@ -17,32 +17,23 @@ class SiteApp extends HTMLElement {
           background-color: #fff;
         }
         
+        /* 全要素をブロック表示にして隙間を埋める */
         .app-wrapper > * {
           display: block;
           width: 100%;
+          margin-bottom: 0; /* 強制的に余白をゼロにする */
         }
 
-        /* 余白設定（以前の設定を維持） */
+        /* 個別のセクションに対しても念のためゼロ指定 */
         topphoto-section,
         story-section,
         business-section,
         lifestyle-section,
         company-section,
-        contact-section {
-          margin-bottom: 100px;
-        }
-        site-header { margin-bottom: 0; }
-        site-footer { margin-bottom: 0; }
-        
-        @media (max-width: 768px) {
-          topphoto-section,
-          story-section,
-          business-section,
-          lifestyle-section,
-          company-section,
-          contact-section {
-            margin-bottom: 60px;
-          }
+        contact-section,
+        site-header,
+        site-footer {
+          margin-bottom: 0 !important;
         }
       </style>
 
@@ -55,10 +46,12 @@ class SiteApp extends HTMLElement {
         <lifestyle-section id="section-lifestyle"></lifestyle-section>
         <company-section   id="section-company"></company-section>
         <contact-section   id="section-contact"></contact-section>
+
         <site-footer></site-footer>
       </div>
     `;
 
+    // 必要な全コンポーネントのJS読み込み
     this.loadScripts([
       'https://yuku0509.github.io/KIA/src/public/custom-elements/site-header.js',
       'https://yuku0509.github.io/KIA/src/public/custom-elements/topPhoto-section.js',
@@ -73,6 +66,7 @@ class SiteApp extends HTMLElement {
 
   loadScripts(urls) {
     urls.forEach(url => {
+      // 重複読み込み防止
       if (!document.querySelector(`script[src="${url}"]`)) {
         const script = document.createElement('script');
         script.src = url;

@@ -1,5 +1,5 @@
 /* eslint-disable */
-class SiteApp extends HTMLElement {
+class SiteHeader extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -8,76 +8,180 @@ class SiteApp extends HTMLElement {
   connectedCallback() {
     this.shadowRoot.innerHTML = `
       <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Noto+Serif+JP:wght@400;700&display=swap');
+
         :host {
           display: block;
-          width: 100%;
-          margin: 0;
-          padding: 0;
-          font-family: "Helvetica Neue", Arial, sans-serif;
-          background-color: #fff;
-        }
-        
-        /* 全要素をブロック表示にして隙間を埋める */
-        .app-wrapper > * {
-          display: block;
-          width: 100%;
-          margin-bottom: 0; /* 強制的に余白をゼロにする */
+          position: fixed;
+          top: 0; left: 0; width: 100%;
+          z-index: 9999;
+          font-family: 'Noto Sans JP', sans-serif;
         }
 
-        /* 個別のセクションに対しても念のためゼロ指定 */
-        topphoto-section,
-        story-section,
-        business-section,
-        lifestyle-section,
-        company-section,
-        contact-section,
-        site-header,
-        site-footer {
-          margin-bottom: 0 !important;
+        .header {
+          background-color: rgba(244, 244, 244, 0.95);
+          backdrop-filter: blur(8px);
+          box-shadow: 0 2px 10px rgba(11, 30, 61, 0.1);
+          padding: 15px 0;
+          transition: padding 0.3s ease;
+        }
+
+        .l-container {
+          max-width: 1280px;
+          margin: 0 auto;
+          padding: 0 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .logo {
+          font-size: 24px;
+          font-weight: 900;
+          color: #0B1E3D;
+          text-decoration: none;
+          cursor: pointer;
+          letter-spacing: 0.05em;
+        }
+        .logo img { height: 30px; display: block; }
+
+        .nav-list {
+          display: flex; list-style: none; margin: 0; padding: 0; gap: 30px;
+        }
+
+        .nav-item a {
+          text-decoration: none;
+          color: #0B1E3D;
+          font-size: 14px;
+          font-weight: 700;
+          text-transform: uppercase;
+          cursor: pointer;
+          position: relative;
+          letter-spacing: 0.1em;
+        }
+
+        .nav-item a::after {
+          content: '';
+          position: absolute;
+          bottom: -5px; left: 0; width: 0%; height: 2px;
+          background: #FF6600;
+          transition: width 0.3s;
+        }
+        .nav-item a:hover::after { width: 100%; }
+
+        .hamburger {
+          display: none; background: none; border: none; cursor: pointer;
+          width: 30px; height: 24px; position: relative; z-index: 1001;
+        }
+        .hamburger span {
+          display: block; width: 100%; height: 2px;
+          background: #0B1E3D;
+          position: absolute; transition: 0.3s;
+        }
+        .hamburger span:nth-child(1) { top: 0; }
+        .hamburger span:nth-child(2) { top: 11px; }
+        .hamburger span:nth-child(3) { bottom: 0; }
+
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg); top: 11px; }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg); bottom: 11px; }
+
+        .sp-nav {
+          position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
+          background: #F4F4F4;
+          transition: 0.4s; display: flex; align-items: center; justify-content: center; z-index: 1000;
+        }
+        .sp-nav.active { right: 0; }
+        .sp-nav ul { list-style: none; padding: 0; text-align: center; }
+        .sp-nav li { margin: 30px 0; }
+        .sp-nav a {
+          font-size: 20px; font-weight: bold;
+          color: #0B1E3D;
+          text-decoration: none;
+          font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        @media (max-width: 900px) {
+          .nav-list { display: none; }
+          .hamburger { display: block; }
         }
       </style>
 
-      <div class="app-wrapper">
-        <site-header></site-header>
-        
-        <topphoto-section id="section-top"></topphoto-section>
-        <story-section     id="section-story"></story-section>
-        <business-section  id="section-business"></business-section>
-        <lifestyle-section id="section-lifestyle"></lifestyle-section>
-        <company-section   id="section-company"></company-section>
-        <contact-section   id="section-contact"></contact-section>
-
-        <site-footer></site-footer>
-      </div>
+      <header class="header">
+        <div class="l-container">
+          <a class="logo" data-target="section-top">
+            <img src="https://corp.tential.jp/wp-content/themes/tential/assets/img/logo.svg" alt="TENTIAL">
+          </a>
+          <ul class="nav-list">
+            <li class="nav-item"><a data-target="section-top">Top</a></li>
+            <li class="nav-item"><a data-target="section-story">Story</a></li>
+            <li class="nav-item"><a data-target="section-business">Business</a></li>
+            <li class="nav-item"><a data-target="section-lifestyle">LifeStyle</a></li>
+            <li class="nav-item"><a data-target="section-company">Company</a></li>
+            <li class="nav-item"><a data-target="section-contact">Contact</a></li>
+          </ul>
+          <button class="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </header>
+      <nav class="sp-nav">
+        <ul>
+          <li><a data-target="section-top">Top</a></li>
+          <li><a data-target="section-story">Story</a></li>
+          <li><a data-target="section-business">Business</a></li>
+          <li><a data-target="section-lifestyle">LifeStyle</a></li>
+          <li><a data-target="section-company">Company</a></li>
+          <li><a data-target="section-contact">Contact</a></li>
+        </ul>
+      </nav>
     `;
+    
+    const links = this.shadowRoot.querySelectorAll('a[data-target]');
+    const hamburger = this.shadowRoot.querySelector('.hamburger');
+    const spNav = this.shadowRoot.querySelector('.sp-nav');
 
-    // 必要な全コンポーネントのJS読み込み
-    this.loadScripts([
-      'https://yuku0509.github.io/KIA/src/public/custom-elements/site-header.js',
-      'https://yuku0509.github.io/KIA/src/public/custom-elements/topPhoto-section.js',
-      'https://yuku0509.github.io/KIA/src/public/custom-elements/story-section.js',
-      'https://yuku0509.github.io/KIA/src/public/custom-elements/business-section.js',
-      'https://yuku0509.github.io/KIA/src/public/custom-elements/lifeStyle-section.js',
-      'https://yuku0509.github.io/KIA/src/public/custom-elements/company-section.js',
-      'https://yuku0509.github.io/KIA/src/public/custom-elements/contact-section.js',
-      'https://yuku0509.github.io/KIA/src/public/custom-elements/site-footer.js'
-    ]);
-  }
+    links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('data-target');
+        
+        // ▼▼▼ 修正ポイント ▼▼▼
+        // document.getElementById ではなく、this.getRootNode() から探す
+        const root = this.getRootNode(); 
+        let targetElement = null;
 
-  loadScripts(urls) {
-    urls.forEach(url => {
-      // 重複読み込み防止
-      if (!document.querySelector(`script[src="${url}"]`)) {
-        const script = document.createElement('script');
-        script.src = url;
-        script.type = 'text/javascript';
-        script.async = false; 
-        document.head.appendChild(script);
-      }
+        // もし root がShadowRootなら、そこから探す（SiteAppの中にいる場合）
+        if (root instanceof ShadowRoot) {
+          targetElement = root.getElementById(targetId);
+        } else {
+          // 普通のHTMLにいる場合のフォールバック
+          targetElement = document.getElementById(targetId);
+        }
+        // ▲▲▲▲▲▲
+
+        if (targetElement) {
+          // 要素が見つかればスクロール
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          // 要素が見つからない場合（＝プライバシーポリシーページなど別ページにいる場合）
+          // トップページへ遷移
+          window.location.href = '/' + '#' + targetId;
+        }
+
+        if (hamburger.classList.contains('active')) {
+          hamburger.classList.remove('active');
+          spNav.classList.remove('active');
+        }
+      });
+    });
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      spNav.classList.toggle('active');
     });
   }
 }
-
-if (!customElements.get('site-app')) {
-  customElements.define('site-app', SiteApp);
+if (!customElements.get('site-header')) {
+  customElements.define('site-header', SiteHeader);
 }
