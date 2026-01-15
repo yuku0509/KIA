@@ -222,14 +222,14 @@ class lifeStyleSection extends HTMLElement {
           .top-life { padding: 80px 0; }
           .top-life__heading { margin-bottom: 50px; }
           .top-life__jp-title { font-size: 24px; }
-          
+
           .ceo-teaser {
             padding: 50px 30px;
             flex-direction: column-reverse; /* スマホでは写真を上に */
             text-align: center;
             align-items: center; /* 中央揃えに戻す */
           }
-          
+
           .ceo-info { 
             padding-right: 0; 
             width: 100%;
