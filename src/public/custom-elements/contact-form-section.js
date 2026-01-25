@@ -8,6 +8,7 @@ class ContactFormSection extends HTMLElement {
   connectedCallback() {
     this.shadowRoot.innerHTML = `
       <style>
+        /* CSS部分は変更なし（そのまま維持） */
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Oswald:wght@500&display=swap');
 
         :host {
@@ -120,7 +121,6 @@ class ContactFormSection extends HTMLElement {
           cursor: pointer;
         }
         
-        /* リンクの色などを調整 */
         .agree-link {
           color: #FF6600;
           text-decoration: underline;
@@ -152,6 +152,30 @@ class ContactFormSection extends HTMLElement {
           box-shadow: 0 10px 20px rgba(255, 102, 0, 0.3);
         }
 
+        /* 送信完了メッセージ用 */
+        .success-message {
+          display: none;
+          text-align: center;
+          padding: 40px;
+        }
+        .success-title {
+          font-size: 24px;
+          color: #0B1E3D;
+          font-weight: bold;
+          margin-bottom: 20px;
+        }
+        .success-text {
+          font-size: 16px;
+          line-height: 1.8;
+        }
+        .btn-back {
+          display: inline-block;
+          margin-top: 30px;
+          color: #FF6600;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+
         @media (max-width: 768px) {
           .l-container { padding: 100px 20px 60px; }
           .form-wrapper { padding: 30px 20px; }
@@ -168,42 +192,47 @@ class ContactFormSection extends HTMLElement {
         </div>
 
         <div class="form-wrapper">
-          <form class="contact-form">
+          
+          <form class="contact-form" id="my-form" action="https://formspree.io/f/xlgjyowe" method="POST">
             
+            <input type="hidden" name="_subject" value="【KIA】Webサイトからお問い合わせがありました" />
+            
+            <input type="text" name="_gotcha" style="display:none" />
+
             <div class="form-group">
               <label class="form-label">お名前<span class="badge-required">必須</span></label>
-              <input type="text" class="form-input" placeholder="例：山田 太郎" required>
+              <input type="text" name="お名前" class="form-input" placeholder="例：山田 太郎" required>
             </div>
 
             <div class="form-group">
               <label class="form-label">貴社名<span class="badge-optional">任意</span></label>
-              <input type="text" class="form-input" placeholder="例：株式会社KIA">
+              <input type="text" name="貴社名" class="form-input" placeholder="例：株式会社KIA">
             </div>
 
             <div class="form-group">
               <label class="form-label">メールアドレス<span class="badge-required">必須</span></label>
-              <input type="email" class="form-input" placeholder="例：info@kia.co.jp" required>
+              <input type="email" name="email" class="form-input" placeholder="例：info@kia.co.jp" required>
             </div>
 
             <div class="form-group">
               <label class="form-label">電話番号<span class="badge-optional">任意</span></label>
-              <input type="tel" class="form-input" placeholder="例：03-1234-5678">
+              <input type="tel" name="電話番号" class="form-input" placeholder="例：03-1234-5678">
             </div>
 
             <div class="form-group">
               <label class="form-label">お問い合わせ種別<span class="badge-required">必須</span></label>
-              <select class="form-select" required>
+              <select name="お問い合わせ種別" class="form-select" required>
                 <option value="" disabled selected>選択してください</option>
-                <option value="business">事業・サービスに関するお問い合わせ</option>
-                <option value="recruit">採用に関するお問い合わせ</option>
-                <option value="media">取材・メディア掲載について</option>
-                <option value="other">その他のお問い合わせ</option>
+                <option value="事業・サービスに関するお問い合わせ">事業・サービスに関するお問い合わせ</option>
+                <option value="採用に関するお問い合わせ">採用に関するお問い合わせ</option>
+                <option value="取材・メディア掲載について">取材・メディア掲載について</option>
+                <option value="その他のお問い合わせ">その他のお問い合わせ</option>
               </select>
             </div>
 
             <div class="form-group">
               <label class="form-label">お問い合わせ内容<span class="badge-required">必須</span></label>
-              <textarea class="form-textarea" placeholder="お問い合わせ内容をご記入ください" required></textarea>
+              <textarea name="お問い合わせ内容" class="form-textarea" placeholder="お問い合わせ内容をご記入ください" required></textarea>
             </div>
 
             <div class="form-agree">
@@ -214,14 +243,83 @@ class ContactFormSection extends HTMLElement {
             </div>
 
             <div class="btn-submit-wrap">
-              <button type="submit" class="btn-submit">送信する</button>
+              <button type="submit" class="btn-submit" id="my-form-button">送信する</button>
             </div>
+            
+            <p id="my-form-status" style="text-align:center; margin-top:10px; color:#FF6600; display:none;"></p>
 
           </form>
+
+          <div class="success-message" id="success-message">
+            <h3 class="success-title">お問い合わせ完了</h3>
+            <p class="success-text">
+              お問い合わせありがとうございます。<br>
+              内容を確認の上、担当者よりご連絡させていただきます。<br>
+              今しばらくお待ちください。
+            </p>
+            <a href="/" class="btn-back">TOPページへ戻る</a>
+          </div>
+
         </div>
 
       </div>
     `;
+
+    // --- JavaScriptによる送信処理（AJAX） ---
+    const form = this.shadowRoot.getElementById("my-form");
+    const button = this.shadowRoot.getElementById("my-form-button");
+    const status = this.shadowRoot.getElementById("my-form-status");
+    const successMsg = this.shadowRoot.getElementById("success-message");
+
+    // フォーム送信時のイベント
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault(); // 通常の画面遷移を止める
+      
+      // ボタンを「送信中...」にして無効化
+      const originalBtnText = button.textContent;
+      button.textContent = "送信中...";
+      button.disabled = true;
+      button.style.opacity = "0.7";
+      status.style.display = "none";
+
+      const data = new FormData(event.target);
+
+      try {
+        const response = await fetch(event.target.action, {
+          method: form.method,
+          body: data,
+          headers: {
+              'Accept': 'application/json'
+          }
+        });
+        
+        if (response.ok) {
+          // 成功時：フォームを消して完了メッセージを表示
+          form.style.display = "none";
+          successMsg.style.display = "block";
+          // 画面トップへスクロール
+          this.shadowRoot.querySelector('.l-container').scrollIntoView({ behavior: 'smooth' });
+        } else {
+          // サーバーエラー時
+          const result = await response.json();
+          status.textContent = "送信に失敗しました。時間をおいて再度お試しください。";
+          status.style.display = "block";
+          
+          // ボタンを元に戻す
+          button.textContent = originalBtnText;
+          button.disabled = false;
+          button.style.opacity = "1";
+        }
+      } catch (error) {
+        // ネットワークエラー時
+        status.textContent = "送信エラーが発生しました。ネットワーク状況をご確認ください。";
+        status.style.display = "block";
+        
+        button.textContent = originalBtnText;
+        button.disabled = false;
+        button.style.opacity = "1";
+      }
+    });
   }
 }
 
