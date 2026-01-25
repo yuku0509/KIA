@@ -289,7 +289,7 @@ class lifeStyleSection extends HTMLElement {
             </div>
 
             <div class="ceo-photo-wrap">
-              <img src="https://static.wixstatic.com/media/db070e_4dffe17508de4f2fbbee855ee9b66173~mv2.png" alt="谷口 純也" class="ceo-photo-img">
+              <img src="https://static.wixstatic.com/media/db070e_c6df02046ce744e5b89c25dd9b007983~mv2.jpg" alt="谷口 純也" class="ceo-photo-img">
             </div>
 
           </div>
