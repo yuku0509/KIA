@@ -18,13 +18,16 @@ class AboutCeoSection extends HTMLElement {
           color: #333;
         }
 
-        /* --- ヒーローエリア（トップ画像） --- */
+        /* ヘッダー・フッターの隙間調整 */
+        site-header { margin-bottom: 0; }
+        site-footer { margin-top: 0; }
+
+        /* --- ヒーローエリア --- */
         .hero {
           position: relative;
           width: 100%;
-          height: 60vh; /* 画面の高さの60% */
+          height: 60vh;
           min-height: 400px;
-          /* 提供いただいた画像を使用 */
           background-image: url('https://static.wixstatic.com/media/db070e_3c54079899d64d50989f50aed7413d42~mv2.jpg');
           background-size: cover;
           background-position: center;
@@ -33,7 +36,6 @@ class AboutCeoSection extends HTMLElement {
           justify-content: center;
         }
         
-        /* 画像の上にネイビーのフィルターをかける */
         .hero::after {
           content: '';
           position: absolute;
@@ -46,7 +48,7 @@ class AboutCeoSection extends HTMLElement {
           z-index: 2;
           text-align: center;
           color: #fff;
-          padding-top: 60px; /* ヘッダーの重なりを考慮 */
+          padding-top: 60px;
         }
 
         .hero-label {
@@ -73,7 +75,7 @@ class AboutCeoSection extends HTMLElement {
           letter-spacing: 0.05em;
         }
 
-        /* --- タイムライン（経歴）エリア --- */
+        /* --- タイムラインエリア --- */
         .timeline-section {
           padding: 100px 20px;
           background-color: #f9f9f9;
@@ -103,18 +105,16 @@ class AboutCeoSection extends HTMLElement {
           letter-spacing: 0.1em;
         }
 
-        /* タイムライン本体 */
         .timeline {
           position: relative;
-          padding-left: 40px; /* 左側の線のスペース */
+          padding-left: 40px;
         }
         
-        /* 縦線 */
         .timeline::before {
           content: '';
           position: absolute;
           top: 0;
-          left: 15px; /* 線の位置 */
+          left: 15px;
           width: 2px;
           height: 100%;
           background-color: #ddd;
@@ -124,22 +124,18 @@ class AboutCeoSection extends HTMLElement {
           position: relative;
           margin-bottom: 60px;
         }
-        
-        .timeline-item:last-child {
-          margin-bottom: 0;
-        }
+        .timeline-item:last-child { margin-bottom: 0; }
 
-        /* 丸い点 */
         .timeline-point {
           position: absolute;
           top: 5px;
-          left: -30px; /* 線の上に配置 */
+          left: -30px;
           width: 12px;
           height: 12px;
           background-color: #FF6600;
           border-radius: 50%;
-          border: 4px solid #fff; /* 白い縁取りで浮き立たせる */
-          box-shadow: 0 0 0 2px #FF6600; /* 二重線風 */
+          border: 4px solid #fff;
+          box-shadow: 0 0 0 2px #FF6600;
         }
 
         .timeline-year {
@@ -159,7 +155,6 @@ class AboutCeoSection extends HTMLElement {
           position: relative;
         }
         
-        /* 吹き出しの三角（左向き） */
         .timeline-content::before {
           content: '';
           position: absolute;
@@ -196,85 +191,108 @@ class AboutCeoSection extends HTMLElement {
         }
       </style>
 
-      <div class="hero">
-        <div class="hero-content">
-          <span class="hero-label">REPRESENTATIVE PROFILE</span>
-          <h1 class="hero-title">谷口 純也</h1>
-          <span class="hero-subtitle">JUNYA TANIGUCHI</span>
+      <site-header></site-header>
+
+      <div class="main-content">
+        <div class="hero">
+          <div class="hero-content">
+            <span class="hero-label">REPRESENTATIVE PROFILE</span>
+            <h1 class="hero-title">谷口 純也</h1>
+            <span class="hero-subtitle">JUNYA TANIGUCHI</span>
+          </div>
+        </div>
+
+        <div class="timeline-section">
+          <div class="l-container">
+            <div class="section-header">
+              <span class="section-sub">HISTORY</span>
+              <h2 class="section-title">経歴・歩み</h2>
+            </div>
+
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-point"></div>
+                <div class="timeline-year">EARLY DAYS</div>
+                <div class="timeline-content">
+                  <h3 class="timeline-title">バスケットボールに没頭</h3>
+                  <p class="timeline-desc">
+                    幼少期よりバスケットボールを始め、チームスポーツを通じて「目標に向かって努力すること」「仲間と協力すること」の重要性を学ぶ。この経験が現在の経営哲学の原点となっている。
+                  </p>
+                </div>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-point"></div>
+                <div class="timeline-year">CAREER START</div>
+                <div class="timeline-content">
+                  <h3 class="timeline-title">小売・営業支援の現場へ</h3>
+                  <p class="timeline-desc">
+                    社会人としてのキャリアをスタート。小売事業および営業支援の現場で、顧客ニーズの深掘りと課題解決のスキルを磨く。現場での実践を通じて、ビジネスの基礎体力を養う。
+                  </p>
+                </div>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-point"></div>
+                <div class="timeline-year">MANAGEMENT</div>
+                <div class="timeline-content">
+                  <h3 class="timeline-title">マネジメントへの挑戦</h3>
+                  <p class="timeline-desc">
+                    コンサルティング・マネジメント業務に従事。組織運営や人材育成の難しさと面白さに直面し、リーダーとしての資質を高める。多くのプロジェクトを牽引し、成果を創出。
+                  </p>
+                </div>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-point"></div>
+                <div class="timeline-year">2023.12</div>
+                <div class="timeline-content">
+                  <h3 class="timeline-title">株式会社KIA 設立</h3>
+                  <p class="timeline-desc">
+                    これまでの経験を集大成とし、株式会社KIAを設立。「Kick In Answer」の名の通り、世の中の課題に対して自ら答えを蹴り出し、新たな価値を創造するために独立。
+                  </p>
+                </div>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-point"></div>
+                <div class="timeline-year">FUTURE</div>
+                <div class="timeline-content">
+                  <h3 class="timeline-title">さらなる挑戦へ</h3>
+                  <p class="timeline-desc">
+                    小売、営業支援、キャリアコンサルタント、イベント、美容など多岐にわたる事業を展開。既存の枠にとらわれず、常に新しい領域への挑戦を続けていく。
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-section">
-        <div class="l-container">
-          <div class="section-header">
-            <span class="section-sub">HISTORY</span>
-            <h2 class="section-title">経歴・歩み</h2>
-          </div>
-
-          <div class="timeline">
-            
-            <div class="timeline-item">
-              <div class="timeline-point"></div>
-              <div class="timeline-year">EARLY DAYS</div>
-              <div class="timeline-content">
-                <h3 class="timeline-title">バスケットボールに没頭</h3>
-                <p class="timeline-desc">
-                  幼少期よりバスケットボールを始め、チームスポーツを通じて「目標に向かって努力すること」「仲間と協力すること」の重要性を学ぶ。この経験が現在の経営哲学の原点となっている。
-                </p>
-              </div>
-            </div>
-
-            <div class="timeline-item">
-              <div class="timeline-point"></div>
-              <div class="timeline-year">CAREER START</div>
-              <div class="timeline-content">
-                <h3 class="timeline-title">小売・営業支援の現場へ</h3>
-                <p class="timeline-desc">
-                  社会人としてのキャリアをスタート。小売事業および営業支援の現場で、顧客ニーズの深掘りと課題解決のスキルを磨く。現場での実践を通じて、ビジネスの基礎体力を養う。
-                </p>
-              </div>
-            </div>
-
-            <div class="timeline-item">
-              <div class="timeline-point"></div>
-              <div class="timeline-year">MANAGEMENT</div>
-              <div class="timeline-content">
-                <h3 class="timeline-title">マネジメントへの挑戦</h3>
-                <p class="timeline-desc">
-                  コンサルティング・マネジメント業務に従事。組織運営や人材育成の難しさと面白さに直面し、リーダーとしての資質を高める。多くのプロジェクトを牽引し、成果を創出。
-                </p>
-              </div>
-            </div>
-
-            <div class="timeline-item">
-              <div class="timeline-point"></div>
-              <div class="timeline-year">2023.12</div>
-              <div class="timeline-content">
-                <h3 class="timeline-title">株式会社KIA 設立</h3>
-                <p class="timeline-desc">
-                  これまでの経験を集大成とし、株式会社KIAを設立。「Kick In Answer」の名の通り、世の中の課題に対して自ら答えを蹴り出し、新たな価値を創造するために独立。
-                </p>
-              </div>
-            </div>
-
-            <div class="timeline-item">
-              <div class="timeline-point"></div>
-              <div class="timeline-year">FUTURE</div>
-              <div class="timeline-content">
-                <h3 class="timeline-title">さらなる挑戦へ</h3>
-                <p class="timeline-desc">
-                  小売、営業支援、キャリアコンサルタント、イベント、美容など多岐にわたる事業を展開。既存の枠にとらわれず、常に新しい領域への挑戦を続けていく。
-                </p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
+      <site-footer></site-footer>
     `;
+
+    // ヘッダーとフッターのスクリプトを読み込む
+    this.loadScripts([
+      'https://yuku0509.github.io/KIA/src/public/custom-elements/site-header.js',
+      'https://yuku0509.github.io/KIA/src/public/custom-elements/site-footer.js'
+    ]);
+  }
+
+  loadScripts(urls) {
+    urls.forEach(url => {
+      if (!document.querySelector(`script[src="${url}"]`)) {
+        const script = document.createElement('script');
+        script.src = url;
+        script.type = 'text/javascript';
+        script.async = false; 
+        document.head.appendChild(script);
+      }
+    });
   }
 }
 
+// タグ名: about-ceo-section
 if (!customElements.get('about-ceo-section')) {
   customElements.define('about-ceo-section', AboutCeoSection);
 }
