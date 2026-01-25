@@ -26,19 +26,14 @@ class AboutCeoSection extends HTMLElement {
         .hero {
           position: relative;
           width: 100%;
-          height: 50vh; /* 画像がないので少し高さを抑えてスッキリさせます（調整可） */
+          height: 50vh;
           min-height: 300px;
-          
-          /* ▼変更: 画像を削除し、濃いネイビー(#0B1E3D)に変更 */
-          background-color: #0B1E3D; 
-          
+          background-color: #0B1E3D; /* 濃いネイビー */
           display: flex;
           align-items: center;
           justify-content: center;
         }
         
-        /* 背景が単色になったので、画像用の黒フィルター(::after)は削除しました */
-
         .hero-content {
           position: relative;
           z-index: 2;
@@ -206,13 +201,27 @@ class AboutCeoSection extends HTMLElement {
             </div>
 
             <div class="timeline">
+              
               <div class="timeline-item">
                 <div class="timeline-point"></div>
-                <div class="timeline-year">EARLY DAYS</div>
+                <div class="timeline-year">ORIGIN</div>
                 <div class="timeline-content">
-                  <h3 class="timeline-title">バスケットボールに没頭</h3>
+                  <h3 class="timeline-title">「勝負師の勘」と自立の教育</h3>
                   <p class="timeline-desc">
-                    幼少期よりバスケットボールを始め、チームスポーツを通じて「目標に向かって努力すること」「仲間と協力すること」の重要性を学ぶ。この経験が現在の経営哲学の原点となっている。
+                    福島で生まれ秋田で育つ。2歳から水泳を始め、常に「勝負」の世界に身を置く。<br>
+                    両親からの「勝つためには何が必要か、自分で考えろ」という教えにより、ビジネスの根幹となる課題解決への姿勢と自立心が養われた。
+                  </p>
+                </div>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-point"></div>
+                <div class="timeline-year">STUDENT DAYS</div>
+                <div class="timeline-content">
+                  <h3 class="timeline-title">バスケに捧げた青春と挫折</h3>
+                  <p class="timeline-desc">
+                    小学3年から大学4年までバスケットボールに没頭。本気でプロを目指し、週6日の練習に明け暮れる。<br>
+                    しかし、度重なる怪我によりプロへの道は閉ざされる。「もうあんなに熱くなれる場所はないのかもしれない」という喪失感と共に社会へ出る。
                   </p>
                 </div>
               </div>
@@ -221,45 +230,38 @@ class AboutCeoSection extends HTMLElement {
                 <div class="timeline-point"></div>
                 <div class="timeline-year">CAREER START</div>
                 <div class="timeline-content">
-                  <h3 class="timeline-title">小売・営業支援の現場へ</h3>
+                  <h3 class="timeline-title">営業成績1位、それでも「現状維持」が怖かった</h3>
                   <p class="timeline-desc">
-                    社会人としてのキャリアをスタート。小売事業および営業支援の現場で、顧客ニーズの深掘りと課題解決のスキルを磨く。現場での実践を通じて、ビジネスの基礎体力を養う。
+                    大手機械部品メーカー（THK株式会社）に入社。関東1位の営業成績を収めるも、年功序列と安定志向の社風に違和感を抱く。<br>
+                    「20代の貴重な時間を現状維持に費やしていいのか？」その危機感が確信に変わり、安定を捨てる決意をする。
                   </p>
                 </div>
               </div>
 
               <div class="timeline-item">
                 <div class="timeline-point"></div>
-                <div class="timeline-year">MANAGEMENT</div>
+                <div class="timeline-year">AGES 24-26</div>
                 <div class="timeline-content">
-                  <h3 class="timeline-title">マネジメントへの挑戦</h3>
+                  <h3 class="timeline-title">会社設立：再び「熱狂」の渦へ</h3>
                   <p class="timeline-desc">
-                    コンサルティング・マネジメント業務に従事。組織運営や人材育成の難しさと面白さに直面し、リーダーとしての資質を高める。多くのプロジェクトを牽引し、成果を創出。
+                    24歳で退路を断ち、起業の準備を開始。26歳で会社を設立。<br>
+                    都内を拠点に小売、人材、不動産、コンサル、地方創生など多岐にわたる事業を展開。「現状維持」を脱ぎ捨てた先には、想像以上にエキサイティングで成長できるステージが待っていた。
                   </p>
                 </div>
               </div>
 
               <div class="timeline-item">
                 <div class="timeline-point"></div>
-                <div class="timeline-year">2023.12</div>
+                <div class="timeline-year">NOW</div>
                 <div class="timeline-content">
-                  <h3 class="timeline-title">株式会社KIA 設立</h3>
+                  <h3 class="timeline-title">株式会社KIAと「大人の青春」</h3>
                   <p class="timeline-desc">
-                    これまでの経験を集大成とし、株式会社KIAを設立。「Kick In Answer」の名の通り、世の中の課題に対して自ら答えを蹴り出し、新たな価値を創造するために独立。
+                    時間と場所の自由を手に入れ、カンヌ国際映画祭への招待や国内外への旅を通じて感性をアップデートし続けている。<br>
+                    掲げるビジョンは「大人の青春」。安定に甘んじず、高い壁に挑み、仲間と共に昨日の自分を超えていく。最高に面白いチームで、アツい景色を見続けていく。
                   </p>
                 </div>
               </div>
 
-              <div class="timeline-item">
-                <div class="timeline-point"></div>
-                <div class="timeline-year">FUTURE</div>
-                <div class="timeline-content">
-                  <h3 class="timeline-title">さらなる挑戦へ</h3>
-                  <p class="timeline-desc">
-                    小売、営業支援、キャリアコンサルタント、イベント、美容など多岐にわたる事業を展開。既存の枠にとらわれず、常に新しい領域への挑戦を続けていく。
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
         </div>
