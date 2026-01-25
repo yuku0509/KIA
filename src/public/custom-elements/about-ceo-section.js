@@ -26,22 +26,18 @@ class AboutCeoSection extends HTMLElement {
         .hero {
           position: relative;
           width: 100%;
-          height: 60vh;
-          min-height: 400px;
-          background-image: url('https://static.wixstatic.com/media/db070e_3c54079899d64d50989f50aed7413d42~mv2.jpg');
-          background-size: cover;
-          background-position: center;
+          height: 50vh; /* 画像がないので少し高さを抑えてスッキリさせます（調整可） */
+          min-height: 300px;
+          
+          /* ▼変更: 画像を削除し、濃いネイビー(#0B1E3D)に変更 */
+          background-color: #0B1E3D; 
+          
           display: flex;
           align-items: center;
           justify-content: center;
         }
         
-        .hero::after {
-          content: '';
-          position: absolute;
-          top: 0; left: 0; width: 100%; height: 100%;
-          background: rgba(11, 30, 61, 0.6); 
-        }
+        /* 背景が単色になったので、画像用の黒フィルター(::after)は削除しました */
 
         .hero-content {
           position: relative;
@@ -196,7 +192,7 @@ class AboutCeoSection extends HTMLElement {
       <div class="main-content">
         <div class="hero">
           <div class="hero-content">
-            <span class="hero-label">REPRESENTATIVE PROFILE</span>
+            <span class="hero-label">CEO PROFILE</span>
             <h1 class="hero-title">谷口 純也</h1>
             <span class="hero-subtitle">JUNYA TANIGUCHI</span>
           </div>
@@ -272,7 +268,6 @@ class AboutCeoSection extends HTMLElement {
       <site-footer></site-footer>
     `;
 
-    // ヘッダーとフッターのスクリプトを読み込む
     this.loadScripts([
       'https://yuku0509.github.io/KIA/src/public/custom-elements/site-header.js',
       'https://yuku0509.github.io/KIA/src/public/custom-elements/site-footer.js'
@@ -292,7 +287,6 @@ class AboutCeoSection extends HTMLElement {
   }
 }
 
-// タグ名: about-ceo-section
 if (!customElements.get('about-ceo-section')) {
   customElements.define('about-ceo-section', AboutCeoSection);
 }
