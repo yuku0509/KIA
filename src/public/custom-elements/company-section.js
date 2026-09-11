@@ -185,7 +185,7 @@ class CompanySection extends HTMLElement {
 
             <div class="company-row">
               <div class="company-dt">資本金</div>
-              <div class="company-dd">100万円</div>
+              <div class="company-dd">1,000,000円</div>
             </div>
 
             <div class="company-row">
