@@ -10,20 +10,32 @@ class TopPhotoSection extends HTMLElement {
     
     this.shadowRoot.innerHTML = `
       <style>
+        /* 【非表示中】動画を出さず、後続セクションを詰めるため高さ0にしている。
+           display:none にしないのは、ヘッダーの「Top」リンク(#section-top)へのスクロールを生かすため。
+           再表示するときはこのブロックを削除し、下のコメントアウトを戻す */
         :host {
           display: block;
           width: 100%;
-          height: 810px; /* PC用高さ */
+          height: 0;
+          overflow: hidden;
+        }
+
+        /* 【非表示中】元の設定
+        :host {
+          display: block;
+          width: 100%;
+          height: 810px;   ← PC用高さ
           overflow: hidden;
           position: relative;
         }
 
-        /* スマホ用高さ調整 */
+        ← スマホ用高さ調整
         @media (max-width: 768px) {
           :host {
             height: 500px; 
           }
         }
+        */
         
         .hero-video {
           width: 100%;
@@ -33,6 +45,7 @@ class TopPhotoSection extends HTMLElement {
         }
       </style>
 
+      <!-- 【非表示中】再表示するときはこのコメントアウトを外す
       <video 
         class="hero-video"
         src="https://video.wixstatic.com/video/db070e_4cc3577d9e1846a1a377dfdf8cd84259/1080p/mp4/file.mp4" 
@@ -42,11 +55,13 @@ class TopPhotoSection extends HTMLElement {
         loop 
         playsinline
       ></video>
+      -->
     `;
 
     // --- ここから追加：SEO用構造化データ（JSON-LD）の動的挿入 ---
     // カスタムエレメントが複数回呼ばれても重複して追加されないようにチェック
-    if (!document.querySelector('#seo-video-topphoto')) {
+    // 【非表示中】動画を出していない間は、Googleに動画があると伝えないよう無効化（再表示時は false を外す）
+    if (false && !document.querySelector('#seo-video-topphoto')) {
       const structuredData = {
         "@context": "https://schema.org",
         "@type": "VideoObject",
